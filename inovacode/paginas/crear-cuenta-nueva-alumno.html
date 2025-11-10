@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Complementarias</title>
+
+    <link rel="stylesheet" href="../css/estilos.css">
+
+
+</head>
+
+
+<style>
+    body {
+        background-image: url("../img/fondo-login-alumno.jpg");
+        /* ← cambia el nombre de la imagen según tu archivo */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        backdrop-filter: brightness(0.9);
+    }
+</style>
+
+<body class="alumno-body">
+    <!--NAVBAR-->
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary ">
+        <div class="container-fluid">
+
+
+            <a class="navbar-brand d-flex align-items-center">
+                <img src="../img/logo.jpeg" alt="Logo" width="50" height="50"
+                    class="d-inline-block align-text-top me-2">
+                <div class="d-flex flex-column">
+                    <span class="fw-bold">INNOVACODE</span>
+                    <small>Actividades complementarias</small>
+                </div>
+            </a>
+
+
+
+            
+        </div>
+    </nav>
+
+
+
+    <!--FORMULARIO LOGIN-->
+
+    <div class="container d-flex justify-content-center mt-5 mb-5">
+
+        <div class="card p-4 ">
+            <h2>Crear cuenta de aumno</h2>
+            <form action="../acciones/insertar-alumnos.php" method="post">
+
+                <div class="mb-3 text-start">
+                    <label for="control" class="form-label fw-bold">No.de control</label>
+                    <input type="text" class="form-control" id="control" placeholder="Ej. 20231234" name="no_control" required>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label for="nom" class="form-label fw-bold">Nombre</label>
+                    <input type="text" class="form-control" id="nom" placeholder="Ej. 20231234" name="n" required>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label for="nom" class="form-label fw-bold">Carrera</label>
+                    <input type="text" class="form-control" id="nom" placeholder="TICS" name="c" required>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label for="nom" class="form-label fw-bold">Correo</label>
+                    <input type="email" class="form-control" id="nom" placeholder="example@gmil.com" name="e" required>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label for="password" class="form-label fw-bold">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="p" placeholder="********" required>
+                    <div class="text-center">
+                        <a href="login-alumno.html">¿Ya tienes una cuenta? inicia sesión aqui</a>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-custom w-100">Crear cuenta</button>
+                <div class="mt-3">
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br>
+
+
+    <!--PIE DE PÁGINA-->
+
+    <footer class="fixed-bottom bg-light py-3">
+        <div class="container text-center">
+            <small>Copyright &copy; InovaCode</small>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+    <!--JS BOOTSTRAP-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

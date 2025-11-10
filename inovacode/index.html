@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/estilos.css">
+  <title>Actividades Complementarias - InovaCode</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<style>
+  .carousel-item img {
+    height: 80vh;
+    object-fit: cover;
+    filter: brightness(70%);
+  }
+
+  .carousel-caption {
+    bottom: 30%;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 15px;
+    animation: fadeInUp 1.2s ease;
+  }
+
+  .carousel-caption h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  .carousel-caption p {
+    font-size: 1.2rem;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .btn-inicio {
+    background-color: #198754;
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem 2rem;
+    border-radius: 30px;
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-inicio:hover {
+    background-color: #146c43;
+    transform: scale(1.05);
+  }
+</style>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center">
+        <img src="img/logo.jpeg" alt="Logo" width="50" height="50" class="d-inline-block align-text-top me-2">
+        <div class="d-flex flex-column">
+          <span class="fw-bold">INNOVACODE</span>
+          <small>Actividades complementarias</small>
+        </div>
+      </a>
+    </div>
+  </nav>
+
+  <!-- CARRUSEL -->
+  <div id="carouselInicio" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-inner">
+
+      <!-- IMAGEN 1 -->
+      <div class="carousel-item active">
+        <img src="img/carrusel-habilidades.jpg" class="d-block w-100" alt="Actividades culturales">
+        <div class="carousel-caption">
+          <h1>Desarrolla tus habilidades</h1>
+          <p>Explora el arte, el deporte y la cultura con nuestras actividades complementarias.</p>
+          <a href="paginas/login-alumno.html" class="btn btn-inicio mt-3">Iniciar sesión</a>
+        </div>
+      </div>
+
+      <!-- IMAGEN 2 -->
+      <div class="carousel-item">
+        <img src="img/carrusel-deporte.jpg" class="d-block w-100" alt="Deportes">
+        <div class="carousel-caption">
+          <h1>Participa en actividades deportivas</h1>
+          <p>Fomenta la disciplina, el trabajo en equipo y la superación personal.</p>
+          <a href="paginas/login-alumno.html" class="btn btn-inicio mt-3">Iniciar sesión</a>
+        </div>
+      </div>
+
+      <!-- IMAGEN 3 -->
+      <div class="carousel-item">
+        <img src="img/carrusel-arte.jpg" class="d-block w-100" alt="Arte y música">
+        <div class="carousel-caption">
+          <h1>Exprésate a través del arte</h1>
+          <p>Encuentra tu pasión en talleres de música, danza, pintura y más.</p>
+          <a href="paginas/login-alumno.html" class="btn btn-inicio mt-3">Iniciar sesión</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTROLES -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselInicio" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselInicio" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
+  </div>
+
+  <!--Acerca de-->
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto text-center">
+      <h1 class="fw-light">¿Qué son las actividades complementarias</h1>
+      <p class="lead text-body-secondary">Actividades que ofrece el tecnologico de estudios superiores de cuautitlan
+        Izacalli a sus alumnos para enrriquecer su formación academica. <hr> Las actividades complementarias pueden
+        ser: tutorías, actividades deportivas y culturales.
+        El valor de las actividades complementarias establecidas en el plan de estudios es de 5 créditos.</p>
+    </div>
+  </div>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="text-center py-3 mt-5">
+    <small>© 2025 InovaCode - Actividades Complementarias</small>
+  </footer>
+
+  <!-- JS BOOTSTRAP -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

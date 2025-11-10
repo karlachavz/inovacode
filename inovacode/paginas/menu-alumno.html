@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <title>Complementarias</title>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary ">
+    <div class="container-fluid">
+      <a class="navbar-brand">
+        <img src="../img/logo.jpeg" alt="Logo" width="50" height="50"
+          class="d-inline-block align-text-top">
+        <div class="d-flex flex-column me-auto">
+          <a href="#" class="text-decoration-none text-dark fw-bold">INNOVACODE</a> Actividades complementarias
+        </div>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse " id="navbarNav">
+        <ul class="navbar-nav ms-auto me-1 ">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Actividades</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Historial de avance</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html">Cerrar sesión</a>
+          </li>
+        </ul>
+
+        <a class=" d-flex flex-column p-0 " aria-disabled="true">
+          <img src="../img/perfil.png" alt="Logo" width="30" height="30"
+            class="d-inline-block align-text-end d-none d-md-block">Alumno</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CARROUSEL -->
+  <div class="container mt-5 mb-5">
+    <h2 class="text-center mb-4 fw-bold">Actividades Complementarias</h2>
+
+    <div id="carouselActividades" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+
+        <!-- SLIDE 1 -->
+        <div class="carousel-item active">
+          <div class="row justify-content-center">
+            <!-- Futbol -->
+            <div class="col-md-4">
+              <div class="card shadow-sm">
+                <img src="../img/imagenes-complementarias/futbol.jpg" class="card-img-top" alt="Deporte">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Fútbol</h5><br>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalFutbol">Ver más</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Teatro -->
+            <div class="col-md-4 d-none d-md-block">
+              <div class="card shadow-sm">
+                <img src="../img/imagenes-complementarias/teatro.jpg" class="card-img-top" alt="Arte">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Teatro</h5><br>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTeatro">Ver más</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Volleyball -->
+            <div class="col-md-4 d-none d-md-block">
+              <div class="card shadow-sm">
+                <img src="../img/imagenes-complementarias/voleibol.jpg" class="card-img-top" alt="Voluntariado">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Voleibol</h5><br>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVoleibol">Ver más</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2 -->
+        <div class="carousel-item">
+          <div class="row justify-content-center">
+            <!-- Fotografía -->
+            <div class="col-md-4">
+              <div class="card shadow-sm">
+                <img src="../img/imagenes-complementarias/fotografia.jpg" class="card-img-top" alt="Fotografía">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Fotografía</h5><br>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalFotografia">Ver más</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ajedrez -->
+            <div class="col-md-4 d-none d-md-block">
+              <div class="card shadow-sm">
+                <img src="../img/imagenes-complementarias/ajedrez.jpg" class="card-img-top" alt="Ajedrez">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Ajedrez</h5><br>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAjedrez">Ver más</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Escolta -->
+            <div class="col-md-4 d-none d-md-block">
+              <div class="card shadow-sm">
+                <img src="../img/imagenes-complementarias/escolta.jpg" class="card-img-top" alt="Escolta">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Escolta</h5><br>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEscolta">Ver más</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 3 -->
+        <div class="carousel-item">
+          <div class="row justify-content-center">
+            <!-- Basquetbol -->
+            <div class="col-md-4">
+              <div class="card shadow-sm">
+                <img src="../img/imagenes-complementarias/basquetbol.jpg" class="card-img-top" alt="Basquetbol">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Básquetbol</h5><br>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalBasquet">Ver más</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Banda de guerra -->
+            <div class="col-md-4 d-none d-md-block">
+              <div class="card shadow-sm">
+                <img src="../img/imagenes-complementarias/banda-de-guerra.jpg" class="card-img-top" alt="Banda de guerra">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Banda de Guerra</h5><br>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalBanda">Ver más</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fitness -->
+            <div class="col-md-4 d-none d-md-block">
+              <div class="card shadow-sm">
+                <img src="../img/imagenes-complementarias/fitness.png" class="card-img-top" alt="Fitness">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Entrenamiento Fitness</h5><br>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalFitness">Ver más</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 4 -->
+        <div class="carousel-item">
+          <div class="row justify-content-center">
+            <!-- Tocho -->
+            <div class="col-md-4">
+              <div class="card shadow-sm">
+                <img src="../img/imagenes-complementarias/tocho.jpg" class="card-img-top" alt="Tocho bandera">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Tocho Bandera</h5><br>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTocho">Ver más</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Lectura -->
+            <div class="col-md-4 d-none d-md-block">
+              <div class="card shadow-sm">
+                <img src="../img/imagenes-complementarias/taller-de-lectura.jpg" class="card-img-top" alt="Lectura">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Taller de lectura</h5><br>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLectura">Ver más</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Detección de la mentira -->
+            <div class="col-md-4 d-none d-md-block">
+              <div class="card shadow-sm">
+                <img src="../img/imagenes-complementarias/deteccion-mentira.jpeg" class="card-img-top" alt="Detección de la mentira">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Detección de la mentira</h5><br>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMentira">Ver más</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CONTROLES -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselActividades" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselActividades" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MODALES -->
+  <!-- Futbol -->
+  <div class="modal fade" id="modalFutbol" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Fútbol</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/imagenes-complementarias/futbol.jpg" class="img-fluid rounded mb-3">
+          <p>Participa en entrenamientos y torneos intercolegiales de fútbol. Desarrolla trabajo en equipo, resistencia y disciplina deportiva.</p>
+          <p>CUPOS DISPONIBLES: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teatro -->
+  <div class="modal fade" id="modalTeatro" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Teatro</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/imagenes-complementarias/teatro.jpg" class="img-fluid rounded mb-3">
+          <p>Explora tu creatividad escénica, expresión corporal y habilidades de comunicación mediante la actuación teatral.</p>
+          <p>CUPOS DISPONIBLES: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Volleyboll -->
+  <div class="modal fade" id="modalVoleibol" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Voleibol</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/imagenes-complementarias/voleibol.jpg" class="img-fluid rounded mb-3">
+          <p>Fortalece tu coordinación, reflejos y espíritu competitivo participando en los entrenamientos de voleibol. Aprende sobre estrategia, trabajo en conjunto y respeto por tus compañeros.</p>
+          <p>CUPOS DISPONIBLES: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- fotgrafia -->
+  <div class="modal fade" id="modalFotografia" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Fotografía</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/imagenes-complementarias/fotografia.jpg" class="img-fluid rounded mb-3">
+          <p>Aprende a capturar momentos únicos con técnica y estilo. Este taller te enseña los fundamentos de la fotografía, desde el manejo de cámara hasta la edición básica de imágenes.</p>
+          <p>CUPOS DISPONIBLES: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- ajedrez -->
+  <div class="modal fade" id="modalAjedrez" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ajedrez</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/imagenes-complementarias/ajedrez.jpg" class="img-fluid rounded mb-3">
+          <p>Desarrolla tu pensamiento lógico y tu capacidad de análisis mediante el ajedrez. Participa en torneos y aprende estrategias para mejorar tu concentración y toma de decisiones.</p>
+          <p>CUPOS DISPONIBLES: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- escolta -->
+  <div class="modal fade" id="modalEscolta" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Escolta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/imagenes-complementarias/escolta.jpg" class="img-fluid rounded mb-3">
+          <p>Forma parte del grupo de escolta y representa con orgullo los valores institucionales en ceremonias cívicas. Mejora tu disciplina, porte y sentido de responsabilidad.</p>
+          <p>CUPOS DISPONIBLES: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- basqueboll -->
+  <div class="modal fade" id="modalBasquet" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Básquetbol</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/imagenes-complementarias/basquetbol.jpg" class="img-fluid rounded mb-3">
+          <p>Aumenta tu resistencia, precisión y reflejos participando en el equipo de básquetbol. Vive la emoción de la competencia mientras fortaleces tu cuerpo y mente.</p>
+          <p>CUPOS DISPONIBLES: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- banda de guerra -->
+  <div class="modal fade" id="modalBanda" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Banda de guerra</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/imagenes-complementarias/banda-de-guerra.jpg" class="img-fluid rounded mb-3">
+          <p>Desarrolla habilidades musicales y marciales formando parte de la Banda de Guerra. Aprende ritmo, coordinación y disciplina mientras participas en eventos cívicos y escolares.</p>
+          <p>CUPOS DISPONIBLES: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- fitness -->
+  <div class="modal fade" id="modalFitness" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Entrenamiento Fitness</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/imagenes-complementarias/fitness.png" class="img-fluid rounded mb-3">
+          <p>Mejora tu salud y condición física mediante rutinas de fuerza, resistencia y flexibilidad. Este taller promueve un estilo de vida saludable y activo.</p>
+          <p>CUPOS DISPONIBLES: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!--tocho -->
+  <div class="modal fade" id="modalTocho" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tocho Bandera</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/imagenes-complementarias/tocho.jpg" class="img-fluid rounded mb-3">
+          <p>Participa en este deporte lleno de energía y trabajo en equipo. Aprende técnicas de agilidad, velocidad y estrategia sin contacto físico.</p>
+          <p>CUPOS DISPONIBLES: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- lectura -->
+  <div class="modal fade" id="modalLectura" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Taller de Lectura</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/imagenes-complementarias/taller-de-lectura.jpg" class="img-fluid rounded mb-3">
+          <p>Descubre el placer de la lectura compartiendo opiniones y reflexiones sobre obras literarias. Amplía tu vocabulario, comprensión y pensamiento crítico.</p>
+          <p>CUPOS DISPONIBLES: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- deteccion de mentiras -->
+  <div class="modal fade" id="modalMentira" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Lenguaje no verbal y Detección de la mentira</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/imagenes-complementarias/deteccion-mentira.jpeg" class="img-fluid rounded mb-3">
+          <p>Aprende a analizar el lenguaje corporal, tono de voz y microexpresiones para detectar señales de engaño. Este taller combina psicología, observación y comunicación efectiva.</p>
+          <p>CUPOS DISPONIBLES: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="fixed-bottom bg-light py-3">
+    <div class="container text-center">
+      <small>Copyright &copy; INNOVACODE</small>
+    </div>
+  </footer>
+
+  <!-- JS BOOTSTRAP -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+</html>
