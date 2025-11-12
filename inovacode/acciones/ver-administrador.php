@@ -9,7 +9,11 @@ function conectando(){
     $consulta="select * from administrador";
     //$res almacena el resultado
     $res=$C->query($consulta);
+    // Cerrar conexión
+    
+    $C->close();
     return $res;
+
 
 }
 ?>

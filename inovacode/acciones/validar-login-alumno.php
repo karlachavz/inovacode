@@ -5,13 +5,6 @@ require "conexion.php";
 $no_control=$_POST['no_control'];
 $contrasena=$_POST['contrasena'];
 
-
-
-
-
-
-
-
     //objeto conexion
     $C=conectar();
     $consulta ="SELECT * FROM alumno WHERE Control =".$no_control." AND contrasena ='".$contrasena."'";

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2025 a las 04:31:12
+-- Tiempo de generación: 13-11-2025 a las 00:29:41
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -39,8 +39,9 @@ CREATE TABLE `administrador` (
 --
 
 INSERT INTO `administrador` (`id_admin`, `usuario`, `correo`, `contrasena`) VALUES
-(1, 'Ramon', 'ramon@yahoo.com', '12345'),
-(6, 'Donovan', 'donovan@gmail.com', '12345');
+(6, 'Donovan', 'donovan@gmail.com', '12345'),
+(7, 'Jhonatan', 'jhon@gmail.com', '12345'),
+(8, 'Sebastian', 'sebastian@gmail.com', '12345');
 
 -- --------------------------------------------------------
 
@@ -63,9 +64,10 @@ CREATE TABLE `alumno` (
 --
 
 INSERT INTO `alumno` (`control`, `nombre`, `apellido_paterno`, `apellido_materno`, `carrera`, `correo`, `contrasena`) VALUES
-(22, 'Yoaklklñ', '', '', 'TICS', 'DANIA@GMIAL.COM', '123456789'),
-(29, 'jfksdl', '', '', 'TICS', 'holla@gmail.com', '12345'),
-(290, 'fernanda', '', '', 'TICS', 'fer@gmail.com', '12345');
+(29, 'Juana', 'Ortiz', 'Sanchez', 'TICS', 'holla@gmail.com', '12345'),
+(290, 'fernandaaaa', 'Luna', 'Dominguez', 'TICS', 'fer@gmail.com', '12345'),
+(223107500, 'Amanda', 'Luna', 'Dominguez', 'Contaduria', 'jhon@gmail.com', '12345'),
+(223107403, 'Karla', 'Alcon', 'Dominguez', 'TICS', 'DANIA@GMIAL.COM', '12345678');
 
 --
 -- Índices para tablas volcadas
@@ -85,7 +87,7 @@ ALTER TABLE `administrador`
 -- AUTO_INCREMENT de la tabla `administrador`
 --
 ALTER TABLE `administrador`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

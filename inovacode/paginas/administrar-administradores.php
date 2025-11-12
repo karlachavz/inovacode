@@ -6,48 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro Alumno</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-       
-
-
-
-        .card {
-            background: #fff;
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            
-            text-align: center;
-
-        }
-
-       
-        .card h2 {
-            color: #1d2671;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .btn-custom {
-            background-color: #1d2671;
-            color: white;
-
-            transition: 0.3s;
-        }
-
-        .btn-custom:hover {
-            background-color: #c33764;
-            transform: scale(1.05);
-        }
-    </style>
+    <link rel="stylesheet" href="../css/estilos.css">
+    
 </head>
 
 <body>
     <!--Nav bar-->
     <nav class="navbar navbar-expand-lg bg-body-tertiary ">
         <div class="container-fluid">
-
-
+            <!--logo y marca -->
             <a class="navbar-brand d-flex align-items-center">
                 <img src="../img/logo.jpeg" alt="Logo" width="50" height="50"
                     class="d-inline-block align-text-top me-2">
@@ -72,11 +39,7 @@
                             Usuarios
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item " href="crear-nuevo-administrador.html">Nuevo administrativo</a>
-                            </li>
-                            <li><a class="dropdown-item" href="crear-nuevo-alumno.html">Nuevo alumno</a></li>
-                            <li><a class="dropdown-item" href="administrar-administradores.php">Administrar administrativos</a>
-                            </li>
+                            <li><a class="dropdown-item" href="administrar-administradores.php">Administrar administrativos</a></li>
                             <li><a class="dropdown-item" href="administrar-alumnos.php">Administrar alumnos</a></li>
                         </ul>
                     </li>
@@ -114,60 +77,158 @@
 
 
 
-     <div class="container d-flex justify-content-center mt-5 mb-5">
-        <div class="card p-4">
-            <h2>Administrar usuarios</h2>
+     <div class="container row justify-content-center mt-5 mb-5">
+
+            <div class="text-center col-12 col-md-6 col-lg-4 me-5">
+                <div class="text-center">
+                <h2>Administrar usuarios</h2>
+                </div>
+                <form   action="../acciones/insertar-administrador.php" method="post">
+                    
+
+                    <div class="mb-3 text-start">
+                    <label for="user" class="form-label fw-bold">Usuario</label>
+                    <input name="u" type="text" class="form-control" id="user" placeholder="Ej. admin01" required minlength="4" maxlength="20" pattern="[A-Za-z0-9_]+" title="Solo letras, números o guiones bajos">
+                    </div>
+
+                    <div class="mb-3 text-start">
+                    <label name="correo" for="password" class="form-label fw-bold">Correo electronico</label>
+                    <input name="e" type="email" class="form-control" id="correo" placeholder="example@gmail.com" required>
+                    </div>
 
 
+                    <div class="mb-3 text-start">
+                    <label name="contrasena" for="password" class="form-label fw-bold">Contraseña</label>
+                    <input name="p" type="password" class="form-control" id="contrasena" placeholder="********" required minlength="6" title="Debe tener al menos 6 caracteres">
+                    </div>
+                    
 
-            <div class="table-responsive">
-
-
-            <?php require ("../acciones/ver-administrador.php"); ?>
-            
-
-
-
-                <table class="table align-middle">
-                    <thead>
-                        <!--encabezados-->
-                        <tr>
-                            <th>Usuario</th>
-                            <th>Correo</th>
-                            <th>Contraseña</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                         <?php 
-                            $valores=conectando();
-                            while($p=$valores->fetch_assoc()){ 
-                        ?>
-
-                        <tr>
-                            <td><?php echo $p['usuario']; ?></td>
-                            <td><?php echo $p['correo']; ?></td>
-                            <td>
-                                <a href="editar-administrador.php?ID=<?php echo $p['id_admin']; ?>" class="btn btn-primary btn-sm">Editar</a>
-                               <a  href="../acciones/eliminar-administrador.php?ID=<?php echo $p['id_admin']; ?>" class="btn btn-primary btn-sm">Eliminar</a>
-                            </td>
-                        </tr>
-
-                        <?php } ?>
-                     
-                    </tbody>
-                </table>
+                    <button type="submit" class="btn btn-custom ">Crear cuenta</button>
+        
+                </form>
             </div>
-        </div>
+            
+            <!--tabla de datos administradores-->
+            <div class="table-responsive mt-5 col-12 col-md-6">
+    <?php require ("../acciones/ver-administrador.php"); ?>
+
+    <table class="table table-bordered table-striped text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>Usuario</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+                $valores = conectando();
+                while($p = $valores->fetch_assoc()){ 
+            ?>
+            <tr>
+                <td><?php echo $p['usuario']; ?></td>
+                <td><?php echo $p['correo']; ?></td>
+                <td>
+                    <!-- BOTÓN EDITAR que abre el modal -->
+                    <button 
+                        class="btn btn-primary btn-sm editarBtn"
+                        data-id="<?php echo $p['id_admin']; ?>"
+                        data-usuario="<?php echo $p['usuario']; ?>"
+                        data-correo="<?php echo $p['correo']; ?>"
+                        data-pass="<?php echo $p['contrasena']; ?>"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#editarModal">
+                        Editar
+                    </button>
+
+                    <!-- BOTÓN ELIMINAR -->
+                    <a href="../acciones/eliminar-administrador.php?ID=<?php echo $p['id_admin']; ?>" 
+                       class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+        
     </div>
+
+<!-- ========================= -->
+<!-- MODAL EDITAR ADMINISTRADOR -->
+<!-- ========================= -->
+
+    <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="editarModalLabel">Editar Administrador</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <form action="../acciones/actualizar-administrador.php" method="POST">
+        <div class="modal-body">
+          
+          <input type="hidden" name="id" id="edit-id">
+
+          <div class="mb-3">
+            <label for="edit-user" class="form-label fw-bold">Usuario</label>
+            <input type="text" name="u" id="edit-user" class="form-control" required minlength="4" maxlength="20" pattern="[A-Za-z0-9_]+" title="Solo letras, números o guiones bajos">
+          </div>
+
+          <div class="mb-3">
+            <label for="edit-email" class="form-label fw-bold">Correo electrónico</label>
+            <input type="email" name="e" id="edit-email" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="edit-pass" class="form-label fw-bold">Contraseña</label>
+            <input type="password" name="p" id="edit-pass" class="form-control" required minlength="6">
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- SCRIPT PARA LLENAR EL MODAL -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const editarBtns = document.querySelectorAll(".editarBtn");
+
+    editarBtns.forEach(btn => {
+        btn.addEventListener("click", function () {
+            // Tomar datos del botón
+            const id = this.getAttribute("data-id");
+            const usuario = this.getAttribute("data-usuario");
+            const correo = this.getAttribute("data-correo");
+            const pass = this.getAttribute("data-pass");
+
+            // Cargar datos al modal
+            document.getElementById("edit-id").value = id;
+            document.getElementById("edit-user").value = usuario;
+            document.getElementById("edit-email").value = correo;
+            document.getElementById("edit-pass").value = pass;
+        });
+    });
+});
+</script>
 
 
   
 
     <!--PIE DE PÁGINA-->
 
-    <footer class="fixed-bottom bg-light py-3">
+    <footer class="fixed-bottom footer mt-auto py-3">
         <div class="container text-center">
             <small>Copyright &copy; InovaCode</small>
         </div>
