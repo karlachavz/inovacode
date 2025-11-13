@@ -43,8 +43,13 @@
             </a>
 
 
+            <div>
+                <a href="login-alumno.html" class="btn btn-custom">Regresar a inicio de sesión</a>
+            </div>
 
-            
+
+
+
         </div>
     </nav>
 
@@ -56,55 +61,72 @@
 
         <div class="card p-4 ">
             <h2>Crear cuenta de aumno</h2>
-            <form action="../acciones/insertar-alumnos.php" method="post">
-                <div class="mb-3 text-start">
-                <label for="control" class="form-label fw-bold">No. de control</label>
-                <input type="text" class="form-control" id="control" name="no_control"
-                    placeholder="Ej. 203107400" required pattern="[0-9]{9}" title="Debe contener exactamente 9 dígitos numéricos">
+            <form action="../acciones/insertar-alumno-alumno.php" method="post">
+
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3 text-start">
+                            <label for="control" class="form-label fw-bold">No. de control</label>
+                            <input type="text" class="form-control" id="control" name="no_control"
+                                placeholder="Ej. 203107400" required pattern="[0-9]{9}"
+                                title="Debe contener exactamente 9 dígitos numéricos">
+                        </div>
+
+                        <div class="mb-3 text-start">
+                            <label for="nom" class="form-label fw-bold">Nombre</label>
+                            <input type="text" class="form-control" id="nom" name="n" placeholder="" required
+                                pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" minlength="3" maxlength="50"
+                                title="Solo se permiten letras y espacios">
+                        </div>
+
+                        <div class="mb-3 text-start">
+                            <label for="ap1" class="form-label fw-bold">Primer apellido</label>
+                            <input type="text" class="form-control" id="ap1" name="ap1" placeholder="" required
+                                pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" minlength="3" maxlength="50"
+                                title="Solo se permiten letras y espacios">
+                        </div>
+
+                        <div class="mb-3 text-start">
+                            <label for="ap2" class="form-label fw-bold">Segundo apellido</label>
+                            <input type="text" class="form-control" id="ap2" name="ap2" placeholder="" required
+                                pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" minlength="3" maxlength="50"
+                                title="Solo se permiten letras y espacios">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3 text-start">
+                            <label for="carrera" class="form-label fw-bold">Carrera</label>
+                            <input type="text" class="form-control" id="carrera" name="c" placeholder="TICS" required
+                                pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" minlength="3" maxlength="50"
+                                title="Solo se permiten letras y espacios">
+                        </div>
+
+                        <div class="mb-3 text-start">
+                            <label for="correo" class="form-label fw-bold">Correo electrónico</label>
+                            <input type="email" class="form-control" id="correo" name="e"
+                                placeholder="example@gmail.com" required>
+                        </div>
+
+                        <div class="mb-3 text-start">
+                            <label for="password" class="form-label fw-bold">Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="p" placeholder="********"
+                                required minlength="8" maxlength="20" title="Debe tener entre 6 y 20 caracteres">
+                        </div>
+                    </div>
                 </div>
 
-                <div class="mb-3 text-start">
-                <label for="nom" class="form-label fw-bold">Nombre</label>
-                <input type="text" class="form-control" id="nom" name="n"
-                    placeholder="" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"
-                    minlength="3" maxlength="50" title="Solo se permiten letras y espacios">
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-custom">Crear cuenta</button>
+
                 </div>
 
-                <div class="mb-3 text-start">
-                <label for="ap1" class="form-label fw-bold">Primer apellido</label>
-                <input type="text" class="form-control" id="ap1" name="ap1"
-                    placeholder="" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"
-                    minlength="3" maxlength="50" title="Solo se permiten letras y espacios">
-                </div>
 
-                <div class="mb-3 text-start">
-                <label for="ap2" class="form-label fw-bold">Segundo apellido</label>
-                <input type="text" class="form-control" id="ap2" name="ap2"
-                    placeholder="" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"
-                    minlength="3" maxlength="50" title="Solo se permiten letras y espacios">
-                </div>
 
-                <div class="mb-3 text-start">
-                <label for="carrera" class="form-label fw-bold">Carrera</label>
-                <input type="text" class="form-control" id="carrera" name="c"
-                    placeholder="TICS" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"
-                    minlength="3" maxlength="50" title="Solo se permiten letras y espacios">
-                </div>
 
-                <div class="mb-3 text-start">
-                <label for="correo" class="form-label fw-bold">Correo electrónico</label>
-                <input type="email" class="form-control" id="correo" name="e"
-                    placeholder="example@gmail.com" required>
-                </div>
 
-                <div class="mb-3 text-start">
-                <label for="password" class="form-label fw-bold">Contraseña</label>
-                <input type="password" class="form-control" id="password" name="p"
-                    placeholder="********" required minlength="8" maxlength="20"
-                    title="Debe tener entre 6 y 20 caracteres">
-                </div>
 
-                <button type="submit" class="btn btn-custom">Crear cuenta</button>
             </form>
         </div>
 
@@ -122,7 +144,7 @@
 
 
 
-<br><br><br><br><br>
+    <br><br><br><br><br>
 
 
     <!--PIE DE PÁGINA-->
