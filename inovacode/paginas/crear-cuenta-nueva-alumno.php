@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Complementarias</title>
+
+    <link rel="stylesheet" href="../css/estilos.css">
+
+
+</head>
+
+
+<style>
+    body {
+        background-image: url("../img/fondo-login-alumno.jpg");
+        /* ← cambia el nombre de la imagen según tu archivo */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        backdrop-filter: brightness(0.9);
+    }
+</style>
+
+<body class="alumno-body">
+    <!--NAVBAR-->
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary ">
+        <div class="container-fluid">
+
+
+            <a class="navbar-brand d-flex align-items-center">
+                <img src="../img/logo.jpeg" alt="Logo" width="50" height="50"
+                    class="d-inline-block align-text-top me-2">
+                <div class="d-flex flex-column">
+                    <span class="fw-bold">INNOVACODE</span>
+                    <small>Actividades complementarias</small>
+                </div>
+            </a>
+
+
+            <div>
+                <a href="login-alumno.html" class="btn btn-custom">Regresar a inicio de sesión</a>
+            </div>
+
+
+
+
+        </div>
+    </nav>
+
+
+
+    <!--FORMULARIO LOGIN-->
+
+    <div class="container d-flex justify-content-center mt-5 mb-5">
+
+        <div class="card p-4 ">
+            <h2>Crear cuenta de aumno</h2>
+            <!--Mensaje de error: en caso de intentar dar de alta un alumno con número de control ya registrado-->
+            <?php
+            if (isset($_GET['error'])) {
+
+                if ($_GET['error'] == "duplicado") {
+                    echo "<div class='alert alert-danger' role='alert'>El número de control ya existe.</div>";
+                }
+
+                if ($_GET['error'] == "desconocido") {
+                   echo "<div class='alert alert-danger' role='alert'>Ha ocurrido un error inesperado al reg.</div>";
+                }
+            }
+            ?>
+            <!--fin del mensaje de error-->
+
+            <form action="../acciones/insertar-alumno-alumno.php" method="post">
+
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3 text-start">
+                            <label for="control" class="form-label fw-bold">No. de control</label>
+                            <input type="text" class="form-control" id="control" name="no_control"
+                                placeholder="Ej. 203107400" required pattern="[0-9]{9}"
+                                title="Debe contener exactamente 9 dígitos numéricos">
+                        </div>
+
+                        <div class="mb-3 text-start">
+                            <label for="nom" class="form-label fw-bold">Nombre</label>
+                            <input type="text" class="form-control" id="nom" name="n" placeholder="" required
+                                pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" minlength="3" maxlength="50"
+                                title="Solo se permiten letras y espacios">
+                        </div>
+
+                        <div class="mb-3 text-start">
+                            <label for="ap1" class="form-label fw-bold">Primer apellido</label>
+                            <input type="text" class="form-control" id="ap1" name="ap1" placeholder="" required
+                                pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" minlength="3" maxlength="50"
+                                title="Solo se permiten letras y espacios">
+                        </div>
+
+                        <div class="mb-3 text-start">
+                            <label for="ap2" class="form-label fw-bold">Segundo apellido</label>
+                            <input type="text" class="form-control" id="ap2" name="ap2" placeholder="" required
+                                pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" minlength="3" maxlength="50"
+                                title="Solo se permiten letras y espacios">
+                        </div>
+
+                    </div>
+                   
+                    <div class="col">
+                        <div class="mb-3 text-start ">
+                            <label for="carrera" class="form-label fw-bold">Carrera</label>
+                            <select name="c" id="carrera" class="form-select" required>
+                                <option value="">--Selecciona la carrera--</option>
+                                <option value="Ingeniería en Gestión Empresarial">Ingeniería en Gestión Empresarial</option>
+                                <option value="Ingeniería en Sistemas Computacionales">Ingeniería en Sistemas Computacionales</option>
+                                <option value="Ingeniería en Tecnologías de la Información y Comunicación">Ingeniería en Tecnologías de la Información y Comunicación</option>
+                                <option value="Ingeniería en Administración">Ingeniería en Administración</option>
+                                <option value="Ingeniería Química">Ingeniería Química</option>
+                                <option value="Contador Público">Contador Público</option>
+                                <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                                <option value="Ingeniería en Logística">Ingeniería en Logística</option>
+                                <option value="Ingeniería en Semiconductores">Ingeniería en Semiconductores</option>
+                                <option value="Ingeniería Mecatrónica">Ingeniería Mecatrónica</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 text-start">
+                            <label for="correo" class="form-label fw-bold">Correo electrónico</label>
+                            <input type="email" class="form-control" id="correo" name="e"
+                                placeholder="example@gmail.com" required>
+                        </div>
+
+                        <div class="mb-3 text-start">
+                            <label for="password" class="form-label fw-bold">Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="p" placeholder="********"
+                                required minlength="8" maxlength="20" title="Debe tener entre 6 y 20 caracteres">
+                        </div>
+
+                        
+                    </div>
+                </div>
+
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-custom">Crear cuenta</button>
+
+                </div>
+
+
+            </form>
+        </div>
+
+    </div>
+
+
+    <br><br><br><br><br>
+
+
+    <!--PIE DE PÁGINA-->
+
+    <footer class="fixed-bottom bg-light py-3">
+        <div class="container text-center">
+            <small>Copyright &copy; InovaCode</small>
+        </div>
+    </footer>
+
+
+    <!--JS BOOTSTRAP-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

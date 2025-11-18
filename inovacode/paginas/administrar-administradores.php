@@ -75,14 +75,32 @@
 
     <!--contenido-->
 
-
-
      <div class="container row justify-content-center mt-5 mb-5">
 
             <div class="text-center col-12 col-md-6 col-lg-4 me-5">
                 <div class="text-center">
-                <h2>Administrar usuarios</h2>
+                <h2>Administrar administrativos</h2>
                 </div>
+
+                <?php
+                if (isset($_GET['mensaje'])) {
+
+                    if ($_GET['mensaje'] == "duplicado") {
+                        echo "<div class='alert alert-danger' role='alert'>Ya existe un usuario con ese nombre.</div>";
+                    }
+
+                    if ($_GET['mensaje'] == "exitoso") {
+                        echo "<div class='alert alert-success' role='alert'>Usuario agregado correctamente</div>";
+                    }
+
+
+
+                    if ($_GET['mensaje'] == "desconocido") {
+                    echo "<div class='alert alert-danger' role='alert'>Ha ocurrido un error inesperado al reg.</div>";
+                    }
+                }
+                ?>
+                
                 <form   action="../acciones/insertar-administrador.php" method="post">
                     
 

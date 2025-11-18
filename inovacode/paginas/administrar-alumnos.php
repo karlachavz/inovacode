@@ -75,6 +75,23 @@
     <div class="text-center ">
       <h2>Crear nuevo alumno</h2>
 
+          <?php
+            if (isset($_GET['mensaje'])) {
+
+                if ($_GET['mensaje'] == "duplicado") {
+                    echo "<div class='alert alert-danger' role='alert'>El número de control ya existe.</div>";
+                }
+
+                if ($_GET['mensaje'] == "exitoso") {
+                    echo "<div class='alert alert-success' role='alert'>Se ha creado su cuenta exitosamente.</div>";
+                }
+
+                if ($_GET['mensaje'] == "desconocido") {
+                   echo "<div class='alert alert-danger' role='alert'>Ha ocurrido un error inesperado al reg.</div>";
+                }
+            }
+          ?>
+
       <form action="../acciones/insertar-alumnos.php" method="post">
         <div class="row">
           <div class="mb-3 text-start col-12 col-md-6  col-lg-4">
@@ -104,12 +121,23 @@
               minlength="3" maxlength="50" title="Solo se permiten letras y espacios">
           </div>
 
-          <div class="mb-3 text-start col-12 col-md-6  col-lg-4">
+          <div class="mb-3 text-start col-12 col-md-6 col-lg-4">
             <label for="carrera" class="form-label fw-bold">Carrera</label>
-            <input type="text" class="form-control" id="carrera" name="c"
-              placeholder="TICS" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"
-              minlength="3" maxlength="50" title="Solo se permiten letras y espacios">
-          </div>
+            <select name="c" id="carrera" class="form-select" required>
+            <option value="">--Selecciona la carrera--</option>
+            <option value="Ingeniería en Gestión Empresarial">Ingeniería en Gestión Empresarial</option>
+            <option value="Ingeniería en Sistemas Computacionales">Ingeniería en Sistemas Computacionales</option>
+            <option value="Ingeniería en Tecnologías de la Información y Comunicación">Ingeniería en Tecnologías de la Información y Comunicación</option>
+            <option value="Ingeniería en Administración">Ingeniería en Administración</option>
+            <option value="Ingeniería Química">Ingeniería Química</option>
+            <option value="Contador Público">Contador Público</option>
+            <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+            <option value="Ingeniería en Logística">Ingeniería en Logística</option>
+            <option value="Ingeniería en Semiconductores">Ingeniería en Semiconductores</option>
+            <option value="Ingeniería Mecatrónica">Ingeniería Mecatrónica</option>
+          </select>
+        </div>
+
 
           <div class="mb-3 text-start col-12 col-md-6  col-lg-4">
             <label for="correo" class="form-label fw-bold">Correo electrónico</label>
@@ -145,10 +173,18 @@
 
           <div class="col-6">
             <select name="division" id="filtro" class="form-select">
-              <option value="">Todas las divisiones</option>
+              <option value="">--Selecciona la carrera--</option>
               <option value="">Ingenieria en Gestion Empresarial</option>
-              <option value="">Ingenieria en sistemas </option>
-              <option value="">Ingenieria en Tecnologias de la comunicacion</option>
+              <option value="">Ingenieria en Sistemas Computacionales </option>
+              <option value="">Ingenieria en Tecnologias de la Informacion y Comunicación</option>
+              <option value="">Ingenieria en Administración</option>
+              <option value="">Ingenieria Química</option>
+              <option value="">Contador Público</option>
+              <option value="">Ingenieria Industrial</option>
+              <option value="">Ingenieria en Logística</option>
+              <option value="">Ingenieria en Semiconductores</option>
+              <option value="">Ingenieria Mecatrónica</option>
+
             </select>
           </div>
 

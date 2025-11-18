@@ -88,13 +88,13 @@ body {
 
         <form action="../acciones/validar-login-alumno.php" method="post">
           <label for="" class="form-label mt-1">Número de control</label>
-          <input type="text" class="form-control" id="" name="no_control" placeholder="Ingresa tu número de control"
-            required>
+          <input type="text" class="form-control" id="" name="no_control" placeholder="Ej. 203107400" required pattern="[0-9]{9}"
+                                title="Debe contener exactamente 9 dígitos numéricos">
           <label for="" class="form-label mt-2">Contraseña</label>
           <input type="password" class="form-control" id="contrasena" name="contrasena"
             placeholder="Ingresa tu contraseña" required>
             <div class="text-center">
-              <a href="crear-cuenta-nueva-alumno.html">¿No cuentas con una cuenta? crearla aquí</a>
+              <a href="crear-cuenta-nueva-alumno.php">¿No cuentas con una cuenta? crearla aquí</a>
             </div>
             
           <div class="text-center mt-2">
