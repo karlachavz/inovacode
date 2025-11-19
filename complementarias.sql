@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-11-2025 a las 21:08:47
+-- Tiempo de generación: 19-11-2025 a las 22:19:49
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -77,6 +77,86 @@ INSERT INTO `alumno` (`control`, `nombre`, `apellido_paterno`, `apellido_materno
 (223107450, 'Yoa', 'Alcon', 'Ochoa', 'TICS', 'holla@gmail.com', '123456'),
 (223107500, 'Amanda', 'Luna', 'Dominguez', 'Contaduria', 'jhon@gmail.com', '12345');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `asignar_grupo_profesor`
+--
+
+CREATE TABLE `asignar_grupo_profesor` (
+  `id_asignar_grupo_profesor` int(11) NOT NULL,
+  `id_grupo` int(11) NOT NULL,
+  `id_profesor` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `asignar_horario_grupo`
+--
+
+CREATE TABLE `asignar_horario_grupo` (
+  `id_asignar_horario_grupo` int(11) NOT NULL,
+  `id_grupo` int(11) NOT NULL,
+  `id_horario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `complemenetarias`
+--
+
+CREATE TABLE `complemenetarias` (
+  `id_complementaria` int(11) NOT NULL,
+  `nombre` varchar(200) NOT NULL,
+  `descripcion` varchar(500) NOT NULL,
+  `imgen` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `grupos`
+--
+
+CREATE TABLE `grupos` (
+  `id_grupo` int(11) NOT NULL,
+  `id_complementaria` int(11) NOT NULL,
+  `nombre_del_grupo` varchar(255) NOT NULL,
+  `cupos_disponibles` int(11) NOT NULL,
+  `cupos_ocupados` int(11) NOT NULL,
+  `creditos` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `horarios`
+--
+
+CREATE TABLE `horarios` (
+  `id_horario` int(11) NOT NULL,
+  `hora` time NOT NULL,
+  `dia` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `profesores`
+--
+
+CREATE TABLE `profesores` (
+  `id_profesor` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `apellido_paterno` varchar(50) NOT NULL,
+  `apellido_materno` varchar(50) NOT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `contraseña` varchar(200) NOT NULL,
+  `correo` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Índices para tablas volcadas
 --
@@ -95,6 +175,42 @@ ALTER TABLE `alumno`
   ADD PRIMARY KEY (`control`);
 
 --
+-- Indices de la tabla `asignar_grupo_profesor`
+--
+ALTER TABLE `asignar_grupo_profesor`
+  ADD PRIMARY KEY (`id_asignar_grupo_profesor`);
+
+--
+-- Indices de la tabla `asignar_horario_grupo`
+--
+ALTER TABLE `asignar_horario_grupo`
+  ADD PRIMARY KEY (`id_asignar_horario_grupo`);
+
+--
+-- Indices de la tabla `complemenetarias`
+--
+ALTER TABLE `complemenetarias`
+  ADD PRIMARY KEY (`id_complementaria`);
+
+--
+-- Indices de la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  ADD PRIMARY KEY (`id_grupo`);
+
+--
+-- Indices de la tabla `horarios`
+--
+ALTER TABLE `horarios`
+  ADD PRIMARY KEY (`id_horario`);
+
+--
+-- Indices de la tabla `profesores`
+--
+ALTER TABLE `profesores`
+  ADD PRIMARY KEY (`id_profesor`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -103,6 +219,42 @@ ALTER TABLE `alumno`
 --
 ALTER TABLE `administrador`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT de la tabla `asignar_grupo_profesor`
+--
+ALTER TABLE `asignar_grupo_profesor`
+  MODIFY `id_asignar_grupo_profesor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `asignar_horario_grupo`
+--
+ALTER TABLE `asignar_horario_grupo`
+  MODIFY `id_asignar_horario_grupo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `complemenetarias`
+--
+ALTER TABLE `complemenetarias`
+  MODIFY `id_complementaria` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  MODIFY `id_grupo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `horarios`
+--
+ALTER TABLE `horarios`
+  MODIFY `id_horario` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `profesores`
+--
+ALTER TABLE `profesores`
+  MODIFY `id_profesor` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
