@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-11-2025 a las 22:19:49
+-- Tiempo de generación: 21-11-2025 a las 05:57:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -178,13 +178,17 @@ ALTER TABLE `alumno`
 -- Indices de la tabla `asignar_grupo_profesor`
 --
 ALTER TABLE `asignar_grupo_profesor`
-  ADD PRIMARY KEY (`id_asignar_grupo_profesor`);
+  ADD PRIMARY KEY (`id_asignar_grupo_profesor`),
+  ADD KEY `fk_asignar_grupo_profesor_grupos` (`id_grupo`),
+  ADD KEY `fk_Asignar_grupo_profesor_Profesor` (`id_profesor`);
 
 --
 -- Indices de la tabla `asignar_horario_grupo`
 --
 ALTER TABLE `asignar_horario_grupo`
-  ADD PRIMARY KEY (`id_asignar_horario_grupo`);
+  ADD PRIMARY KEY (`id_asignar_horario_grupo`),
+  ADD KEY `fk_Asignar_grupo_horario_grupo_Grupo` (`id_grupo`),
+  ADD KEY `fk_asignar_horario_grupo_Horario` (`id_horario`);
 
 --
 -- Indices de la tabla `complemenetarias`
@@ -196,7 +200,8 @@ ALTER TABLE `complemenetarias`
 -- Indices de la tabla `grupos`
 --
 ALTER TABLE `grupos`
-  ADD PRIMARY KEY (`id_grupo`);
+  ADD PRIMARY KEY (`id_grupo`),
+  ADD KEY `fk_Grupos_Complementarias` (`id_complementaria`);
 
 --
 -- Indices de la tabla `horarios`
@@ -255,6 +260,30 @@ ALTER TABLE `horarios`
 --
 ALTER TABLE `profesores`
   MODIFY `id_profesor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `asignar_grupo_profesor`
+--
+ALTER TABLE `asignar_grupo_profesor`
+  ADD CONSTRAINT `fk_Asignar_grupo_profesor_Profesor` FOREIGN KEY (`id_profesor`) REFERENCES `profesores` (`id_profesor`),
+  ADD CONSTRAINT `fk_asignar_grupo_profesor_grupos` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`);
+
+--
+-- Filtros para la tabla `asignar_horario_grupo`
+--
+ALTER TABLE `asignar_horario_grupo`
+  ADD CONSTRAINT `fk_Asignar_grupo_horario_grupo_Grupo` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`),
+  ADD CONSTRAINT `fk_asignar_horario_grupo_Horario` FOREIGN KEY (`id_horario`) REFERENCES `horarios` (`id_horario`);
+
+--
+-- Filtros para la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  ADD CONSTRAINT `fk_Grupos_Complementarias` FOREIGN KEY (`id_complementaria`) REFERENCES `complemenetarias` (`id_complementaria`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
