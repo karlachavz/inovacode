@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-12-2025 a las 06:16:49
+-- Tiempo de generación: 07-01-2026 a las 20:45:00
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -39,9 +39,7 @@ CREATE TABLE `administrador` (
 --
 
 INSERT INTO `administrador` (`id_admin`, `usuario`, `correo`, `contrasena`) VALUES
-(22, 'Roberto', 'holla@gmail.com', '12345678'),
 (23, 'Sebastian', 'holla@gmail.com', '12345678'),
-(24, 'Donovan', 'holla@gmail.com', '12345678'),
 (25, 'Ramon', 'fer@gmail.com', '12345678');
 
 -- --------------------------------------------------------
@@ -65,35 +63,8 @@ CREATE TABLE `alumno` (
 --
 
 INSERT INTO `alumno` (`control`, `nombre`, `apellido_paterno`, `apellido_materno`, `carrera`, `correo`, `contrasena`) VALUES
-(223107402, 'fsfsf', 'dfa', 'fafdsf', 'Ingeniería en Semiconductores', 'holla@gmail.com', '12345678'),
-(223107403, 'Karla', 'Licona', 'Dominguez', 'TICS', 'DANIA@GMIAL.COM', '12345678'),
-(223107424, 'Dania', 'Contreras', 'Porfirio', 'Ingeniería en Sistemas Computacionales', 'DANIA@GMIAL.COM', '12345678'),
 (223107494, 'Jaquelyn', 'Molina', 'Hernandez', 'Ingeniería Mecatrónica', 'DANIA@GMIAL.COM', '12345678'),
 (223107500, 'Amanda', 'Luna', 'Dominguez', 'Contaduria', 'jhon@gmail.com', '12345');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `asignar_grupo_profesor`
---
-
-CREATE TABLE `asignar_grupo_profesor` (
-  `id_asignar_grupo_profesor` int(11) NOT NULL,
-  `id_grupo` int(11) NOT NULL,
-  `id_profesor` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `asignar_horario_grupo`
---
-
-CREATE TABLE `asignar_horario_grupo` (
-  `id_asignar_horario_grupo` int(11) NOT NULL,
-  `id_grupo` int(11) NOT NULL,
-  `id_horario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -113,7 +84,6 @@ CREATE TABLE `complementarias` (
 --
 
 INSERT INTO `complementarias` (`id_complementaria`, `nombre`, `descripcion`, `imagen`) VALUES
-(11, 'Canto', 'Aprende a cantar', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUF5Xvc4NvkgqnrL9T2LWsNx_q0KbuJ-gq7Q&s'),
 (12, 'Photoshop', 'Aprende editar fotografia y video ', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-hiOfcwr8nRt826cIK7pn8cFCf-NWaUPvVQ&s'),
 (13, 'BANDA DE GUERRA', 'Desarrolla habilidades musicales y marciales formando parte de la Banda de Guerra. Aprende ritmo, coordinación y disciplina mientras participas en eventos cívicos y escolares.', '../img/imagenes-complementarias/banda-de-guerra.jpg'),
 (14, 'FÚTBOL', 'Participa en entrenamientos y torneos intercolegiales de fútbol. Desarrolla trabajo en equipo, resistencia y disciplina deportiva.', '../img/imagenes-complementarias/futbol.jpg'),
@@ -130,17 +100,63 @@ INSERT INTO `complementarias` (`id_complementaria`, `nombre`, `descripcion`, `im
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `dia`
+--
+
+CREATE TABLE `dia` (
+  `id_dia` int(11) NOT NULL,
+  `dia` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `dia`
+--
+
+INSERT INTO `dia` (`id_dia`, `dia`) VALUES
+(1, 'Lunes'),
+(2, 'Martes'),
+(3, 'Miércoles'),
+(4, 'Jueves '),
+(5, 'Viernes'),
+(6, 'Sábado');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `grupos`
 --
 
 CREATE TABLE `grupos` (
   `id_grupo` int(11) NOT NULL,
   `id_complementaria` int(11) NOT NULL,
-  `nombre_del_grupo` varchar(255) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
   `cupos_disponibles` int(11) NOT NULL,
   `cupos_ocupados` int(11) NOT NULL,
-  `creditos` int(11) NOT NULL
+  `creditos` int(11) NOT NULL,
+  `id_profesor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `grupos`
+--
+
+INSERT INTO `grupos` (`id_grupo`, `id_complementaria`, `nombre`, `cupos_disponibles`, `cupos_ocupados`, `creditos`, `id_profesor`) VALUES
+(2, 12, 'Photoshop 1', 1, 0, 2, 1),
+(3, 12, 'Photoshop 1', 1, 0, 2, 1),
+(4, 12, 'Photoshop 1', 1, 0, 2, 1),
+(5, 12, 'Photoshop 1', 1, 0, 2, 1),
+(6, 12, 'Photoshop 1', 1, 0, 2, 1),
+(7, 12, 'Photoshop 1', 1, 0, 2, 1),
+(8, 12, 'Photoshop 1', 1, 0, 2, 1),
+(9, 12, 'Photoshop 1', 1, 0, 2, 1),
+(10, 12, 'Photoshop 1', 1, 0, 2, 1),
+(11, 12, 'CANTOi', 4, 0, 1, 1),
+(15, 12, 'AJEDRES 1', 5, 0, 1, 1),
+(16, 12, 'Photoshop 3', 22, 0, 1, 1),
+(17, 12, 'Photoshop', 6, 0, 2, 1),
+(18, 12, 'Photoshop', 8, 0, 5, 1),
+(19, 12, 'AJEDREShh', 8, 0, 4, 1),
+(20, 12, 'BACHATA I', 22, 0, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -150,9 +166,20 @@ CREATE TABLE `grupos` (
 
 CREATE TABLE `horarios` (
   `id_horario` int(11) NOT NULL,
-  `hora` time NOT NULL,
-  `dia` varchar(50) NOT NULL
+  `id_dia` int(6) NOT NULL,
+  `hora_inicio` time NOT NULL,
+  `hora_fin` time NOT NULL,
+  `id_grupo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `horarios`
+--
+
+INSERT INTO `horarios` (`id_horario`, `id_dia`, `hora_inicio`, `hora_fin`, `id_grupo`) VALUES
+(9, 1, '16:00:00', '17:00:00', 19),
+(10, 2, '15:00:00', '16:00:00', 20),
+(11, 2, '13:00:00', '14:00:00', 20);
 
 -- --------------------------------------------------------
 
@@ -166,9 +193,16 @@ CREATE TABLE `profesores` (
   `apellido_paterno` varchar(50) NOT NULL,
   `apellido_materno` varchar(50) NOT NULL,
   `usuario` varchar(50) NOT NULL,
-  `contraseña` varchar(200) NOT NULL,
+  `contrasena` varchar(200) NOT NULL,
   `correo` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `profesores`
+--
+
+INSERT INTO `profesores` (`id_profesor`, `nombre`, `apellido_paterno`, `apellido_materno`, `usuario`, `contrasena`, `correo`) VALUES
+(1, 'Elsa', 'Sanchez', 'Peres', 'Elvira1234', '12345678', 'elvira_sanchez@gmail.com');
 
 --
 -- Índices para tablas volcadas
@@ -188,22 +222,6 @@ ALTER TABLE `alumno`
   ADD PRIMARY KEY (`control`);
 
 --
--- Indices de la tabla `asignar_grupo_profesor`
---
-ALTER TABLE `asignar_grupo_profesor`
-  ADD PRIMARY KEY (`id_asignar_grupo_profesor`),
-  ADD KEY `fk_asignar_grupo_profesor_grupos` (`id_grupo`),
-  ADD KEY `fk_Asignar_grupo_profesor_Profesor` (`id_profesor`);
-
---
--- Indices de la tabla `asignar_horario_grupo`
---
-ALTER TABLE `asignar_horario_grupo`
-  ADD PRIMARY KEY (`id_asignar_horario_grupo`),
-  ADD KEY `fk_Asignar_grupo_horario_grupo_Grupo` (`id_grupo`),
-  ADD KEY `fk_asignar_horario_grupo_Horario` (`id_horario`);
-
---
 -- Indices de la tabla `complementarias`
 --
 ALTER TABLE `complementarias`
@@ -211,17 +229,26 @@ ALTER TABLE `complementarias`
   ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
+-- Indices de la tabla `dia`
+--
+ALTER TABLE `dia`
+  ADD PRIMARY KEY (`id_dia`);
+
+--
 -- Indices de la tabla `grupos`
 --
 ALTER TABLE `grupos`
   ADD PRIMARY KEY (`id_grupo`),
-  ADD KEY `fk_Grupos_Complementarias` (`id_complementaria`);
+  ADD KEY `fk_Grupos_Complementarias` (`id_complementaria`),
+  ADD KEY `fk_Grupos_Profesores` (`id_profesor`);
 
 --
 -- Indices de la tabla `horarios`
 --
 ALTER TABLE `horarios`
-  ADD PRIMARY KEY (`id_horario`);
+  ADD PRIMARY KEY (`id_horario`),
+  ADD KEY `fk_horarios_dia` (`id_dia`),
+  ADD KEY `fk_Horarios_Grupos` (`id_grupo`);
 
 --
 -- Indices de la tabla `profesores`
@@ -240,64 +267,52 @@ ALTER TABLE `administrador`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT de la tabla `asignar_grupo_profesor`
---
-ALTER TABLE `asignar_grupo_profesor`
-  MODIFY `id_asignar_grupo_profesor` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `asignar_horario_grupo`
---
-ALTER TABLE `asignar_horario_grupo`
-  MODIFY `id_asignar_horario_grupo` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `complementarias`
 --
 ALTER TABLE `complementarias`
   MODIFY `id_complementaria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
+-- AUTO_INCREMENT de la tabla `dia`
+--
+ALTER TABLE `dia`
+  MODIFY `id_dia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `grupos`
 --
 ALTER TABLE `grupos`
-  MODIFY `id_grupo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_grupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `horarios`
 --
 ALTER TABLE `horarios`
-  MODIFY `id_horario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_horario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `profesores`
 --
 ALTER TABLE `profesores`
-  MODIFY `id_profesor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_profesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `asignar_grupo_profesor`
---
-ALTER TABLE `asignar_grupo_profesor`
-  ADD CONSTRAINT `fk_Asignar_grupo_profesor_Profesor` FOREIGN KEY (`id_profesor`) REFERENCES `profesores` (`id_profesor`),
-  ADD CONSTRAINT `fk_asignar_grupo_profesor_grupos` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`);
-
---
--- Filtros para la tabla `asignar_horario_grupo`
---
-ALTER TABLE `asignar_horario_grupo`
-  ADD CONSTRAINT `fk_Asignar_grupo_horario_grupo_Grupo` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`),
-  ADD CONSTRAINT `fk_asignar_horario_grupo_Horario` FOREIGN KEY (`id_horario`) REFERENCES `horarios` (`id_horario`);
-
---
 -- Filtros para la tabla `grupos`
 --
 ALTER TABLE `grupos`
-  ADD CONSTRAINT `fk_Grupos_Complementarias` FOREIGN KEY (`id_complementaria`) REFERENCES `complementarias` (`id_complementaria`);
+  ADD CONSTRAINT `fk_Grupos_Complementarias` FOREIGN KEY (`id_complementaria`) REFERENCES `complementarias` (`id_complementaria`),
+  ADD CONSTRAINT `fk_Grupos_Profesores` FOREIGN KEY (`id_profesor`) REFERENCES `profesores` (`id_profesor`);
+
+--
+-- Filtros para la tabla `horarios`
+--
+ALTER TABLE `horarios`
+  ADD CONSTRAINT `fk_Horarios_Grupos` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`),
+  ADD CONSTRAINT `fk_horarios_dia` FOREIGN KEY (`id_dia`) REFERENCES `dia` (`id_dia`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
