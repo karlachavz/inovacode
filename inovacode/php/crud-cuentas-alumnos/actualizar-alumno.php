@@ -1,6 +1,4 @@
 <?php 
-
-
 require "../conexion.php";
 $CON =conectar();
 
@@ -19,8 +17,3 @@ echo $consulta;
 $CON->query($consulta);
 $CON->close();
 header("Location:../../administrador/administrar-alumnos.php");
-
-
-  
-
-?>

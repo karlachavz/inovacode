@@ -228,7 +228,7 @@
             <td><?= $p['correo']; ?></td>
             <td class=" table-success">
               <div class="d-flex">
-                 <button class="btn btn-warning btn-sm"
+                 <button class="btn btn-primary btn-sm"
                 data-bs-toggle="modal" 
                 data-bs-target="#modalEditar"
                 data-id="<?= $p['control']; ?>"

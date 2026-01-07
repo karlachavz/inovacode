@@ -48,6 +48,8 @@
                                     administrativas</a></li>
                             <li><a class="dropdown-item" href="administrar-alumnos.php">Administrar cuentas de
                                     alumnos</a></li>
+                            <li><a class="dropdown-item" href="administrar-profesores.php">Administrar cuentas de
+                                    profesores</a></li>
                         </ul>
                     </li>
 
@@ -176,7 +178,7 @@
 
                     <div class="card-body d-flex flex-row flex-wrap justify-content-center">
                         <p class="card-text "><?= $p['nombre']; ?></p>
-                        <a class="btn btn-info ms-auto" title="ver" href="ver-complementarias.php?ID=<?php echo $p['id_complementaria']; ?>" role="button"><i class="bi bi-eye"></i></a>
+                        <a class="btn btn-info ms-auto" title="ver" href="ver-complementarias.php?ID=<?php echo $p['id_complementaria']; ?>&Nombre=<?php echo $p['nombre'] ?>" role="button"><i class="bi bi-eye"></i></a>
                         <a 
                             class="btn btn-success ms-auto editarBtn" 
                             title="editar" role="button" 

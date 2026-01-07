@@ -43,6 +43,8 @@
                                     administrativas</a></li>
                             <li><a class="dropdown-item" href="administrar-alumnos.php">Administrar cuentas de
                                     alumnos</a></li>
+                            <li><a class="dropdown-item" href="administrar-profesores.php">Administrar cuentas de
+                                    profesores</a></li>
                         </ul>
                     </li>
 
