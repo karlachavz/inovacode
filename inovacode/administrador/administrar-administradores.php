@@ -11,7 +11,8 @@
 </head>
 
 <body>
-    <!--Nav bar-->
+    <!--NAVBAR  (.navbar-nav-scroll)-->
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary ">
         <div class="container-fluid">
             <!--logo y marca -->
@@ -69,9 +70,6 @@
             </div>
         </div>
     </nav>
-
-
-
     <!--contenido-->
 
      <div class="container row justify-content-center mt-5 mb-5">

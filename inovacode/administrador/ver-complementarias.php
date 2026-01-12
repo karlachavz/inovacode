@@ -20,6 +20,20 @@
     }
 </style>
 
+<script>
+document.getElementById('modalEditarGrupo').addEventListener('show.bs.modal', function (event) {
+
+    const button = event.relatedTarget;
+
+    document.getElementById('edit_id_grupo').value = button.getAttribute('data-id');
+    document.getElementById('edit_nombre').value = button.getAttribute('data-nombre');
+    document.getElementById('edit_creditos').value = button.getAttribute('data-creditos');
+    document.getElementById('edit_cupos').value = button.getAttribute('data-cupos');
+
+});
+</script>
+
+
 <body>
 
     <!-- NAVBAR -->
@@ -61,23 +75,28 @@
         </div>
     </nav>
 
+
     <!-- CONTENIDO -->
     <div class="container mt-5">
 
 
         <?php
         // Validar ID en caso de entrar a la página sin ID
+
         if (!isset($_GET['ID'])) {
+        //si no se encuentra el id la url de la página lanza la siguente alerta
             echo "<div class='alert alert-danger'>ID no proporcionado</div>";
             exit;
         }
-        //Guardar el id en una variable
+        
+        
+        // si esta guardar el id en una variable
         $id = intval($_GET['ID']);
         // conexion.php contiene la conexion a la base de datos
         require "../php/conexion.php";
         $conexion = conectar();
-
-        $sql = "SELECT * FROM complementarias WHERE id_complementaria = $id";
+        //consulta para obtener nobre y id de la complementaria 
+        $sql = "SELECT nombre, id_complementaria FROM complementarias WHERE id_complementaria = $id";
         $resultado = $conexion->query($sql);
 
         if ($resultado->num_rows == 0) {
@@ -88,57 +107,26 @@
         $p = $resultado->fetch_assoc();
 
 
+
+
         ?>
 
-        <!-- TÍTULO -->
-        <h3 class="text-center mb-4"><?= $p['nombre']; ?></h3>
 
-        <hr>
-
-        <!-- FORMULARIO -->
-        <form action="" method="post">
-            <div class="card">
-                <div class="card-body">
-
-                    <input type="hidden" name="id" value="<?= $p['id_complementaria']; ?>">
-
-                    <label class="form-label">Nombre de la complementaria</label>
-                    <input type="text" class="form-control mb-3"
-                        name="nombre"
-                        value="<?= $p['nombre']; ?>"
-                        disabled>
-
-                    <label class="form-label">Descripción</label>
-                    <input type="text" class="form-control mb-3"
-                        name="descripcion"
-                        value="<?= $p['descripcion']; ?>"
-                        disabled>
-
-                    <label class="form-label">Imagen (link)</label>
-                    <input type="text" class="form-control"
-                        name="imagen"
-                        value="<?= $p['imagen']; ?>"
-                        disabled>
-
-                </div>
-            </div>
-        </form>
-
-        <hr>
-
-        <!-- TABLA DE GRUPOS -->
-        <div class="mt-5">
-            <h4 class="text-center mb-4">Grupos de la complementaria</h4>
+        
+        <div class="">
+            <h4 class="text-center mb-4">Grupos de <?= $p['nombre']; ?></h4>
 
 
             <div class="">
-                <button class="btn btn-primary" data-bs-toggle="modal"
+                <button class="btn btn-custom" data-bs-toggle="modal"
                     data-bs-target="#modalNuevoGrupo">
                     <i class="bi bi-plus-square"></i> Agregar nuevo grupo
                 </button>
             </div>
 
-            <!--Modal para agregar un grupo nuevo-->
+            <hr>
+
+            <!--Modal con el fumulario para insertar un grupo nuevo-->
             <div class="modal fade" id="modalNuevoGrupo" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -147,13 +135,13 @@
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar un nuevo grupo</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <!-- FORMULARIO PARA INSERTAR NUEVA COMPLEMENTARIA-->
+                        <!-- FORMULARIO PARA INSERTAR un nuevo grupo -->
                         <form action="../php/crud-grupos/insertar-grupo.php" method="post">
                             <div class="modal-body">
                                 <input type="text" name="id_complementaria" value="<?= $p['id_complementaria'] ?>" hidden>
 
-                                <label for="" class="form-label">Nombre del grupo</label>
-                                <input type="text" class="form-control" name="nombre" required>
+                                <label for="" class="form-label mt-2">Nombre del grupo</label>
+                                <input type="text" class="form-control" name="nombre" placeholder="Ejemplo:<?= $p['nombre'] ?>  1" required>
 
                                 <label for="" class="form-label mt-2">Profesor</label>
                                 <select class="form-select" name="id_profesor">
@@ -167,17 +155,21 @@
                                         </option>
                                     <?php }
                                     ?>
-
                                 </select>
 
-
                                 <label for="" class="form-label mt-2">Creditos</label>
-                                <input type="number" min="1" max="5" class="form-control" name="creditos" required>
+                                <select class="form-select" name="creditos" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
 
                                 <label for="" class="form-label mt-2">Cupos disponibles</label>
                                 <input type="number" min="1" max="100" class="form-control" name="cupos" required>
 
-                                <label for="" class="form-label mt-2">Día</label>
+                                <label for="" class="form-label mt-2 ">Día</label>
                                 <select class="form-select" name="dia1" required>
                                     <option selected value="">Selecciona un dia de la semana</option>
                                     <option value="1">Lunes</option>
@@ -188,10 +180,10 @@
                                     <option value="6">Sábado</option>
                                 </select>
 
-                                <label for="" class="form-label mt-2">Hora de inicio</label>
+                                <label for="" class="form-label mt-2 ">Hora de inicio</label>
                                 <select name="hora_inicio1" id="hora_inicio1" class="form-select"
                                     onchange="actualizarHoraFin(1); validarHoras('1')" required>
-                                    <option selected value="">hora de inicio</option>
+
                                     <option value="07:00">7:00 am</option>
                                     <option value="08:00">8:00 am</option>
                                     <option value="09:00">9:00 am</option>
@@ -209,7 +201,7 @@
                                     <option value="21:00">9:00 pm</option>
                                 </select>
 
-                                <label for="" class="form-label mt-2">Hora de termino</label>
+                                <label for="" class="form-label mt-2 ">Hora de termino</label>
                                 <select name="hora_fin1" id="hora_fin1" class="form-select"
                                     onchange="validarHoras('1')" required>
                                     <option value="08:00">8:00 am</option>
@@ -323,6 +315,8 @@
                 </div>
             </div><!--fin de la targeta modal-->
 
+
+<!--Mensajes de alerta --> 
             <?php
             if (isset($_GET['mensaje'])) {
                 $alert_class = "";
@@ -335,6 +329,13 @@
                         $alert_class = "danger";
                         $alert_title = "Error";
                         $alert_message = "Ya existe un grupo con ese nombre. Por favor, use un nombre diferente.";
+                        break;
+
+                    case "eliminado":
+                        
+                        $alert_class = "success";
+                        $alert_title = "¡Éxito!";
+                        $alert_message = "Grupo eliminado exitosamente";
                         break;
 
                     case "exitoso":
@@ -393,101 +394,171 @@
             }
             ?>
 
-            <table class="table table-bordered mt-3 ">
+            <?php
+            require("../php/crud-grupos/ver-grupos.php");
+            // Llamamos a la función que trae todos los datos
+
+            $resultado = consultar_grupos($_GET['ID']);
+
+            // Arreglo donde vamos a agrupar los datos por grupo
+            $grupos = [];
+
+            // Recorremos cada fila devuelta por la BD
+            while ($fila = $resultado->fetch_assoc()) {
+
+                // Guardamos el id del grupo actual
+                $id = $fila['id_grupo'];
+
+                // Si el grupo NO existe aún en el arreglo, lo creamos
+                if (!isset($grupos[$id])) {
+
+                    $grupos[$id] = [
+                        // Datos del grupo
+                        'id_grupo'=> $fila['id_grupo'],
+                        'nombre_grupo' => $fila['nombre_grupo'],
+
+                        // Concatenamos el nombre completo del profesor
+                        'profesor' => $fila['nombre_profesor'] . ' ' .
+                            $fila['apellido_paterno'] . ' ' .
+                            $fila['apellido_materno'],
+
+                        'cupos' => $fila['cupos_disponibles'],
+                        'creditos' => $fila['creditos'],
+
+                        // Aquí guardaremos TODOS los horarios del grupo
+                        'horarios' => []
+                    ];
+                }
+
+                // Agregamos el horario actual al grupo correspondiente
+                $grupos[$id]['horarios'][] =
+                    $fila['dia'] . ' ' .
+                    $fila['hora_inicio'] . ' - ' .
+                    $fila['hora_fin'];
+            }
+            ?>
+
+<!-- TABLA DE GRUPOS -->
+
+            <table class="table table-bordered mt-3">
                 <thead class="table-dark">
                     <tr>
                         <th>Nombre</th>
                         <th>Profesor</th>
-                        <th>Día</th>
-                        <th>Horario</th>
+                        <th>Día / Horario</th>
+                        <th>Créditos</th>
                         <th>Cupos</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    <!-- Ejemplo estático (luego lo hacemos dinámico) -->
-                    <?php require("../php/crud-grupos/ver-grupos.php");
-                    <?php
-// Llamamos a la función que trae todos los datos
-$resultado = consultar_grupos();
-
-// Arreglo donde vamos a agrupar los datos por grupo
-$grupos = [];
-
-// Recorremos cada fila devuelta por la BD
-while ($fila = $resultado->fetch_assoc()) {
-
-    // Guardamos el id del grupo actual
-    $id = $fila['id_grupo'];
-
-    // Si el grupo NO existe aún en el arreglo, lo creamos
-    if (!isset($grupos[$id])) {
-
-        $grupos[$id] = [
-            // Datos del grupo
-            'nombre_grupo' => $fila['nombre_grupo'],
-
-            // Concatenamos el nombre completo del profesor
-            'profesor' => $fila['nombre_profesor'] . ' ' .
-                          $fila['apellido_paterno'] . ' ' .
-                          $fila['apellido_materno'],
-
-            'cupos' => $fila['cupos_disponibles'],
-            'creditos' => $fila['creditos'],
-
-            // Aquí guardaremos TODOS los horarios del grupo
-            'horarios' => []
-        ];
-    }
-
-    // Agregamos el horario actual al grupo correspondiente
-    $grupos[$id]['horarios'][] =
-        $fila['dia'] . ' ' .
-        $fila['hora_inicio'] . ' - ' .
-        $fila['hora_fin'];
-}
-?>
-
-                    ?>
-
-                    
-
-
-                    <?php
-                    
-                    $valores_grupo = consultar_grupos();
-                   
-                    while ($p = $valore_grupo->fetch_assoc()) {
-                    ?>
+                    <?php foreach ($grupos as $g) { ?>
                         <tr>
-                            <td><?= $p['nombre_grupo']; ?></td>
-                            <td><?= $p['nombre_profesor']; ?> <?= $p['apellido_paterno']; ?> <?= $p['apellido_materno']; ?></td>
-                            <td>
-                            <?php $valores_horario = consultar_horario($p['id_grupo']);
-                            while ($h = $valores_horario->fetch_assoc()){ ?>
-                            echo $p['dia'];
-                            echo " ";
-                            echo $p['hora_inicio'];
-                            echo $p['hora_fin'];
-                                <hr>
-                             } ?> </td>
+                            <!-- Nombre del grupo -->
+                            <td><?= $g['nombre_grupo']; ?></td>
 
-                            <td><?= $p['creditos'];  ?></td>
-                            <td><?= $p['cupos_disponibles'];  ?></td>
+                            <!-- Profesor -->
+                            <td><?= $g['profesor']; ?></td>
+
+                            <!-- Horarios -->
                             <td>
-                                <button class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></button>
-                                <button class="btn btn-danger btn-sm"> <i class="bi bi-trash"></i></button>
+                                <?php foreach ($g['horarios'] as $h) { ?>
+                                    <?= $h ?><br>
+                                <?php } ?>
+                            </td>
+
+                            <!-- Créditos -->
+                            <td><?= $g['creditos']; ?></td>
+
+                            <!-- Cupos -->
+                            <td><?= $g['cupos']; ?></td>
+
+                            <!-- Botones -->
+                            <td>
+                                <button
+                                    class="btn btn-success btn-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalEditarGrupo"
+
+                                    data-id="<?= $id ?>"
+                                    data-nombre="<?= $g['nombre_grupo'] ?>"
+                                    data-profesor="<?= $g['profesor'] ?>"
+                                    data-creditos="<?= $g['creditos'] ?>"
+                                    data-cupos="<?= $g['cupos'] ?>">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <a href="../php/crud-grupos/eliminar-grupo.php?id_complementaria=<?php echo $_GET['ID']; ?>&id_grupo=<?= $g['id_grupo'] ?>" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
                     <?php } ?>
 
-
                 </tbody>
             </table>
         </div>
-
     </div>
 
+
+    <!--MODAL CON FORMULARIO EDITAR COMPLEMENTARIA-->
+    <div class="modal fade" id="modalEditarGrupo" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <form action="../php/crud-grupos/editar-grupo.php" method="post">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar grupo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <!-- ID del grupo -->
+                        <input type="hidden" name="id_grupo" id="edit_id_grupo">
+
+                        <label class="form-label">Nombre del grupo</label>
+                        <input type="text" class="form-control" name="nombre" id="edit_nombre" required>
+
+                        <label class="form-label mt-2">Profesor</label>
+                        <select class="form-select" name="id_profesor" id="edit_profesor" required>
+                            <?php
+                            $sql = "SELECT id_profesor, nombre, apellido_paterno, apellido_materno FROM profesores";
+                            $res = $conexion->query($sql);
+                            while ($prof = $res->fetch_assoc()) {
+                                echo "<option value='{$prof['id_profesor']}'>
+                                {$prof['nombre']} {$prof['apellido_paterno']} {$prof['apellido_materno']}
+                            </option>";
+                            }
+                            ?>
+                        </select>
+
+                        <label class="form-label mt-2">Créditos</label>
+                        <select class="form-select" name="creditos" id="edit_creditos">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+
+                        <label class="form-label mt-2">Cupos</label>
+                        <input type="number" class="form-control" name="cupos" id="edit_cupos" min="1" max="100" required>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+<br><br>
+<br><br><br><br><br>
     <!-- FOOTER -->
     <footer class="bg-light py-3 mt-5">
         <div class="container text-center">

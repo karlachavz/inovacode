@@ -78,33 +78,82 @@
     <!-- tagetas de Actividades Complementarias-->
 
 
-    
+
 
 
     <div class="container mt-5">
 
         <div class="text-center">
             <h3 class="">Actividades complementarias</h3>
+
+
+
             <?php
             if (isset($_GET['mensaje'])) {
+                $alert_class = "";
+                $alert_title = "";
+                $alert_message = "";
+                $dismissible = true;
 
-                if ($_GET['mensaje'] == "duplicado") {
-                    echo "<div class='alert alert-danger' role='alert'>Ya existe una complementaria con ese nombre.</div>";
+                switch ($_GET['mensaje']) {
+                    case "duplicado":
+                        $alert_class = "danger";
+                        $alert_title = "Error";
+                        $alert_message = "Ya existe una actividad complementaria con ese nombre. Por favor, use un nombre diferente.";
+                        break;
+
+                    case "eliminado":
+
+                        $alert_class = "success";
+                        $alert_title = "¡Éxito!";
+                        $alert_message = "La complementaria se ha eliminado eliminado exitosamente";
+                        break;
+
+                    case "exitoso":
+                        $alert_class = "success";
+                        $alert_title = "¡Éxito!";
+                        $alert_message = "Actividad complementaria creada correctamente.";
+                        break;
+
+                    case "error":
+                        $alert_class = "danger";
+                        $alert_title = "Error";
+                        $alert_message = "Faltan campos obligatorios. Por favor, complete todos los campos requeridos.";
+                        break;
+
+
+                    case "error_db":
+                        $alert_class = "danger";
+                        $alert_title = "Error del sistema";
+                        $alert_message = "Ha ocurrido un pro    blema    al guardar los datos. Intente nuevamente.";
+                        break;
+
+                    case "desconocido":
+                        $alert_class = "danger";
+                        $alert_title = "Error inesperado";
+                        $alert_message = "Ha ocurrido un error inesperado. Por favor, contacte al administrador.";
+                        break;
+
+                    default:
+                        $alert_class = "info";
+                        $alert_title = "Información";
+                        $alert_message = "Estado del proceso: " . htmlspecialchars($_GET['mensaje']);
+                        break;
                 }
 
-                if ($_GET['mensaje'] == "exitoso") {
-                    echo "<div class='alert alert-success' role='alert'>Nueva complementaria creada exitosamente.</div>";
-                }
-
-                if ($_GET['mensaje'] == "desconocido") {
-                   echo "<div class='alert alert-danger' role='alert'>Ha ocurrido un error inesperado al reg.</div>";
-                }
-
-                if ($_GET['mensaje'] == "eliminado") {
-                   echo "<div class='alert alert-info' role='alert'>Actividad complementaria eliminada</div>";
+                if ($dismissible) {
+                    echo "<div class='alert alert-{$alert_class} alert-dismissible fade show' role='alert'>
+                <strong>{$alert_title}:</strong> {$alert_message}
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+              </div>";
+                } else {
+                    echo "<div class='alert alert-{$alert_class}' role='alert'>
+                <strong>{$alert_title}:</strong> {$alert_message}
+              </div>";
                 }
             }
-          ?>
+            ?>
+
         </div>
 
 
@@ -152,7 +201,7 @@
                                 <input type="text" name="img" class="form-control " minlength="3" maxlength="500">
                                 <div id="imghelp" class="form-text ">Ingresa el link a la imagen que quieres mostrar.
                                 </div>
-                                
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -166,35 +215,34 @@
             <!---Cards de las complementarias-->
             <?php require("../php/crud-actividades-complementarias/ver-complementarias.php"); ?>
 
-            <?php 
+            <?php
             $valores = consultar();
-            while($p = $valores->fetch_assoc()){ 
+            while ($p = $valores->fetch_assoc()) {
             ?>
-            
 
-            <div class=" col-12 col-sm-6 col-md-4 col-lg-3 mt-4">
-                <div class="card">
-                    <img src="<?= $p['imagen']; ?>" class="card-img-top" alt="..." style="height:250px" >
 
-                    <div class="card-body d-flex flex-row flex-wrap justify-content-center">
-                        <p class="card-text "><?= $p['nombre']; ?></p>
-                        <a class="btn btn-info ms-auto" title="ver" href="ver-complementarias.php?ID=<?php echo $p['id_complementaria']; ?>&Nombre=<?php echo $p['nombre'] ?>" role="button"><i class="bi bi-eye"></i></a>
-                        <a 
-                            class="btn btn-success ms-auto editarBtn" 
-                            title="editar" role="button" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#modaleditarcomplementaria"
-                            data-id="<?php echo $p['id_complementaria']; ?>"
-                            data-nombre="<?php echo $p['nombre']; ?>"
-                            data-descripcion="<?php echo $p['descripcion']; ?>"
-                            data-imagen="<?php echo $p['imagen']; ?>"
-                            ><i class="bi bi-pencil"></i>
-                        </a>
-                        
-                        <a class="btn btn-danger ms-auto" title="eliminar" href="../php/crud-actividades-complementarias/eliminar-complementaria.php?ID=<?php echo $p['id_complementaria']; ?>" role="button"><i class="bi bi-trash"></i></a>
+                <div class=" col-12 col-sm-6 col-md-4 col-lg-3 mt-4">
+                    <div class="card">
+                        <img src="<?= $p['imagen']; ?>" class="card-img-top" alt="..." style="height:250px">
+
+                        <div class="card-body d-flex flex-row flex-wrap justify-content-center">
+                            <p class="card-text "><?= $p['nombre']; ?></p>
+                            <a class="btn btn-info ms-auto" title="Ver grupos" href="ver-complementarias.php?ID=<?php echo $p['id_complementaria']; ?>&Nombre=<?php echo $p['nombre'] ?>" role="button"><i class="bi bi-eye"></i></a>
+                            <a
+                                class="btn btn-success ms-auto editarBtn"
+                                title="editar" role="button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modaleditarcomplementaria"
+                                data-id="<?php echo $p['id_complementaria']; ?>"
+                                data-nombre="<?php echo $p['nombre']; ?>"
+                                data-descripcion="<?php echo $p['descripcion']; ?>"
+                                data-imagen="<?php echo $p['imagen']; ?>"><i class="bi bi-pencil"></i>
+                            </a>
+
+                            <a class="btn btn-danger ms-auto" title="Eliminar actividad" href="../php/crud-actividades-complementarias/eliminar-complementaria.php?ID=<?php echo $p['id_complementaria']; ?>" role="button"><i class="bi bi-trash"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
 
             <?php } ?>
@@ -223,20 +271,20 @@
                                 <label for="" class="form-label mt-2" minlength="3" maxlength="500">Descripcion
                                     de la
                                     complementaria</label>
-                                <input type="text" class="form-control" name="descripcion"  id="edit-descripcion" required>
+                                <input type="text" class="form-control" name="descripcion" id="edit-descripcion" required>
 
                                 <label for="" class="form-label mt-2">Imagen de la complementaria (link) </label>
                                 <input type="text" name="imagen" class="form-control " minlength="3" maxlength="500" id="edit-imagen">
                                 <div id="imghelp" class="form-text ">Ingresa el link a la imagen que quieres mostrar.
                                 </div>
-                                
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                 <input type="submit" value="Guardar cambios" class="btn btn-secondary mt-2">
                             </div>
                         </form>
-                
+
                     </div>
                 </div>
             </div>
@@ -247,32 +295,32 @@
             <!-- SCRIPT PARA LLENAR EL MODAL -->
 
             <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const editarBtns = document.querySelectorAll(".editarBtn");
+                document.addEventListener("DOMContentLoaded", function() {
+                    const editarBtns = document.querySelectorAll(".editarBtn");
 
-                editarBtns.forEach(btn => {
-                    btn.addEventListener("click", function () {
-                        // Tomar datos del botón
-                        const id = this.getAttribute("data-id");
-                        const nombre = this.getAttribute("data-nombre");
-                        const descripcion = this.getAttribute("data-descripcion");
-                        const imagen = this.getAttribute("data-imagen");
+                    editarBtns.forEach(btn => {
+                        btn.addEventListener("click", function() {
+                            // Tomar datos del botón
+                            const id = this.getAttribute("data-id");
+                            const nombre = this.getAttribute("data-nombre");
+                            const descripcion = this.getAttribute("data-descripcion");
+                            const imagen = this.getAttribute("data-imagen");
 
-                        // Cargar datos al modal
-                        document.getElementById("edit-id").value = id;
-                        document.getElementById("edit-nombre").value = nombre;
-                        document.getElementById("edit-descripcion").value = descripcion;
-                        document.getElementById("edit-imagen").value = imagen;
+                            // Cargar datos al modal
+                            document.getElementById("edit-id").value = id;
+                            document.getElementById("edit-nombre").value = nombre;
+                            document.getElementById("edit-descripcion").value = descripcion;
+                            document.getElementById("edit-imagen").value = imagen;
+                        });
                     });
                 });
-            });
             </script>
 
 
 
-            
 
-           
+
+
 
         </div>
 

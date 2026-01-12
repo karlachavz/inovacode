@@ -12,7 +12,8 @@
 </head>
 
 <body>
-    <!--Navbar-->
+    <!--NAVBAR  (.navbar-nav-scroll)-->
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary ">
         <div class="container-fluid">
             <!--logo y marca -->
@@ -44,6 +45,8 @@
                                     administrativas</a></li>
                             <li><a class="dropdown-item" href="administrar-alumnos.php">Administrar cuentas de
                                     alumnos</a></li>
+                            <li><a class="dropdown-item" href="administrar-profesores.php">Administrar cuentas de
+                                    profesores</a></li>
                         </ul>
                     </li>
 
@@ -68,7 +71,6 @@
             </div>
         </div>
     </nav>
-
 
 
     <!--contenido-->

@@ -8,7 +8,7 @@
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   <title>Complementarias</title>
-   <link rel="stylesheet" href="../css/estilos.css">
+  <link rel="stylesheet" href="../css/estilos.css">
 </head>
 
 <body>
@@ -49,86 +49,91 @@
   </nav>
 
   <!-- CARROUSEL -->
-   
+
   <div class="container mt-5 mb-5">
     <h2 class="text-center mb-4 fw-bold">Actividades Complementarias</h2>
     <?php require("../php/crud-actividades-complementarias/ver-complementarias.php"); ?>
-      
+
 
     <div id="carouselActividades" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
-        
 
 
-<?php
-$valores = consultar();
-$contador = 0;
-$slideAbierto = false;
 
-while ($p = $valores->fetch_assoc()) {
+        <?php
+        $valores = consultar();
+        $contador = 0;
+        $slideAbierto = false;
 
-    // Abrir un nuevo slide cada 3 cards
-    if ($contador % 3 == 0) {
+        while ($p = $valores->fetch_assoc()) {
 
-        // Cerrar slide anterior si existe
-        if ($slideAbierto) {
-            echo '</div></div>';
-        }
+          // Abrir un nuevo slide cada 3 cards
+          if ($contador % 3 == 0) {
 
-        // Primer slide = active
-        $active = ($contador == 0) ? 'active' : '';
+            // Cerrar slide anterior si existe
+            if ($slideAbierto) {
+              echo '</div></div>';
+            }
 
-        echo '
+            // Primer slide = active
+            $active = ($contador == 0) ? 'active' : '';
+
+            echo '
         <div class="carousel-item ' . $active . '">
             <div class="row justify-content-center">
         ';
 
-        $slideAbierto = true;
-    }
-?>
-    <!-- CARD -->
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <img src="<?= $p['imagen']; ?>" class="card-img-top" alt="Complementaria" style="height: 300px;" >
-            <div class="card-body text-center">
+            $slideAbierto = true;
+          }
+        ?>
+          <!-- CARD -->
+          <div class="col-md-4">
+            <div class="card shadow-sm">
+              <img src="<?= $p['imagen']; ?>" class="card-img-top" alt="Complementaria" style="height: 300px;">
+              <div class="card-body text-center">
                 <h5 class="card-title"><?= $p['nombre']; ?></h5><br>
-                <button class="btn btn-primary" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#modal<?= $p['id_complementaria']; ?>">
-                    Ver más
+                <button class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal<?= $p['id_complementaria']; ?>">
+                  Ver más
                 </button>
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
 
-    <!-- MODAL -->
-    <div class="modal fade" id="modal<?= $p['id_complementaria']; ?>" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+          <!-- MODAL -->
+          <div class="modal fade" id="modal<?= $p['id_complementaria']; ?>" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><?= $p['nombre']; ?></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  <h5 class="modal-title"><?= $p['nombre']; ?></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="<?= $p['imagen']; ?>" class="img-fluid rounded mb-3">
-                    <p><?= $p['descripcion']; ?></p>
-                    <p><strong>CUPOS DISPONIBLES:</strong></p>
+                  <img src="<?= $p['imagen']; ?>" class="img-fluid rounded mb-3">
+                  <p><?= $p['descripcion']; ?></p>
+                  
+                  
                 </div>
+                <div class="modal-footer">
+                  <p><strong>CUPOS DISPONIBLES:</strong></p>
+                  <a href="grupos-disponibles.php?ID=<?= $p['id_complementaria']; ?>&nombre=<?= $p['nombre']; ?>" class="btn btn-custom">Ver grupos disponibles</a>
+                </div>
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
 
-<?php
-    $contador++;
-}
+        <?php
+          $contador++;
+        }
 
-// Cerrar último slide
-if ($slideAbierto) {
-    echo '</div></div>';
-}
-?>
+        // Cerrar último slide
+        if ($slideAbierto) {
+          echo '</div></div>';
+        }
+        ?>
 
-</div>
+      </div>
 
       <!-- CONTROLES -->
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselActividades" data-bs-slide="prev">
@@ -142,7 +147,7 @@ if ($slideAbierto) {
     </div>
   </div>
 
-  
+
 
   <!-- PIE DE PÁGINA -->
   <footer class="footer mt-auto">
@@ -174,4 +179,5 @@ if ($slideAbierto) {
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
 </body>
+
 </html>
