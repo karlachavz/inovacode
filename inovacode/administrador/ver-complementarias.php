@@ -18,19 +18,25 @@
     #campos-ocultos {
         display: none;
     }
+
+
+    .acciones{
+        display: flex;
+        justify-content: space-between;
+    }
 </style>
 
 <script>
-document.getElementById('modalEditarGrupo').addEventListener('show.bs.modal', function (event) {
+    document.getElementById('modalEditarGrupo').addEventListener('show.bs.modal', function(event) {
 
-    const button = event.relatedTarget;
+        const button = event.relatedTarget;
 
-    document.getElementById('edit_id_grupo').value = button.getAttribute('data-id');
-    document.getElementById('edit_nombre').value = button.getAttribute('data-nombre');
-    document.getElementById('edit_creditos').value = button.getAttribute('data-creditos');
-    document.getElementById('edit_cupos').value = button.getAttribute('data-cupos');
+        document.getElementById('edit_id_grupo').value = button.getAttribute('data-id');
+        document.getElementById('edit_nombre').value = button.getAttribute('data-nombre');
+        document.getElementById('edit_creditos').value = button.getAttribute('data-creditos');
+        document.getElementById('edit_cupos').value = button.getAttribute('data-cupos');
 
-});
+    });
 </script>
 
 
@@ -84,12 +90,12 @@ document.getElementById('modalEditarGrupo').addEventListener('show.bs.modal', fu
         // Validar ID en caso de entrar a la página sin ID
 
         if (!isset($_GET['ID'])) {
-        //si no se encuentra el id la url de la página lanza la siguente alerta
+            //si no se encuentra el id la url de la página lanza la siguente alerta
             echo "<div class='alert alert-danger'>ID no proporcionado</div>";
             exit;
         }
-        
-        
+
+
         // si esta guardar el id en una variable
         $id = intval($_GET['ID']);
         // conexion.php contiene la conexion a la base de datos
@@ -112,21 +118,32 @@ document.getElementById('modalEditarGrupo').addEventListener('show.bs.modal', fu
         ?>
 
 
-        
+
         <div class="">
             <h4 class="text-center mb-4">Grupos de <?= $p['nombre']; ?></h4>
 
 
-            <div class="">
+            <div class="acciones">
                 <button class="btn btn-custom" data-bs-toggle="modal"
                     data-bs-target="#modalNuevoGrupo">
                     <i class="bi bi-plus-square"></i> Agregar nuevo grupo
                 </button>
+
+
+                <div>
+                    <label for="periodo filtro">Periodo</label>
+                    <select name="periodio_filtro" id="periodo_filtro">
+                        <option value="">2025-2</option>
+                        <option value="" selected>2026-1</option>
+                        <option value="">2025-1</option>
+                    </select>
+                </div>
+
             </div>
 
             <hr>
 
-            <!--Modal con el fumulario para insertar un grupo nuevo-->
+            <!--Modal para insertar grupo nuevo-->
             <div class="modal fade" id="modalNuevoGrupo" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -170,7 +187,7 @@ document.getElementById('modalEditarGrupo').addEventListener('show.bs.modal', fu
                                 <input type="number" min="1" max="100" class="form-control" name="cupos" required>
 
                                 <label for="" class="form-label mt-2 ">Día</label>
-                                <select class="form-select" name="dia1" required>
+                                <select class="form-select" name="id_dia1" required>
                                     <option selected value="">Selecciona un dia de la semana</option>
                                     <option value="1">Lunes</option>
                                     <option value="2">Martes</option>
@@ -316,7 +333,7 @@ document.getElementById('modalEditarGrupo').addEventListener('show.bs.modal', fu
             </div><!--fin de la targeta modal-->
 
 
-<!--Mensajes de alerta --> 
+            <!--Mensajes de alerta -->
             <?php
             if (isset($_GET['mensaje'])) {
                 $alert_class = "";
@@ -332,7 +349,7 @@ document.getElementById('modalEditarGrupo').addEventListener('show.bs.modal', fu
                         break;
 
                     case "eliminado":
-                        
+
                         $alert_class = "success";
                         $alert_title = "¡Éxito!";
                         $alert_message = "Grupo eliminado exitosamente";
@@ -414,7 +431,7 @@ document.getElementById('modalEditarGrupo').addEventListener('show.bs.modal', fu
 
                     $grupos[$id] = [
                         // Datos del grupo
-                        'id_grupo'=> $fila['id_grupo'],
+                        'id_grupo' => $fila['id_grupo'],
                         'nombre_grupo' => $fila['nombre_grupo'],
 
                         // Concatenamos el nombre completo del profesor
@@ -438,7 +455,7 @@ document.getElementById('modalEditarGrupo').addEventListener('show.bs.modal', fu
             }
             ?>
 
-<!-- TABLA DE GRUPOS -->
+            <!-- TABLA DE GRUPOS -->
 
             <table class="table table-bordered mt-3">
                 <thead class="table-dark">
@@ -557,8 +574,8 @@ document.getElementById('modalEditarGrupo').addEventListener('show.bs.modal', fu
         </div>
     </div>
 
-<br><br>
-<br><br><br><br><br>
+    <br><br>
+    <br><br><br><br><br>
     <!-- FOOTER -->
     <footer class="bg-light py-3 mt-5">
         <div class="container text-center">

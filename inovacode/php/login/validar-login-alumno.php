@@ -7,7 +7,7 @@ $contrasena=$_POST['contrasena'];
 
     //objeto conexion
     $C=conectar();
-    $consulta ="SELECT * FROM alumno WHERE Control =".$no_control." AND contrasena ='".$contrasena."'";
+    $consulta ="SELECT * FROM usuarios WHERE usuario =".$no_control." AND contrasena ='".$contrasena."' AND id_tipo_usuario = 1";
     //el resultado se crea como un arreglo
     $resultado = $C ->query($consulta);
     

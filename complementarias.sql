@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-01-2026 a las 20:45:00
+-- Tiempo de generación: 22-05-2026 a las 19:08:55
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -28,43 +28,49 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `administrador` (
-  `id_admin` int(11) NOT NULL,
-  `usuario` varchar(50) NOT NULL,
-  `correo` varchar(50) NOT NULL,
-  `contrasena` varchar(50) NOT NULL
+  `id_administrador` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellido_paterno` varchar(100) NOT NULL,
+  `apellido_materno` varchar(100) NOT NULL,
+  `correo` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `administrador`
---
-
-INSERT INTO `administrador` (`id_admin`, `usuario`, `correo`, `contrasena`) VALUES
-(23, 'Sebastian', 'holla@gmail.com', '12345678'),
-(25, 'Ramon', 'fer@gmail.com', '12345678');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `alumno`
+-- Estructura de tabla para la tabla `alumnos`
 --
 
-CREATE TABLE `alumno` (
-  `control` int(11) NOT NULL,
+CREATE TABLE `alumnos` (
+  `numero_control` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido_paterno` varchar(50) NOT NULL,
   `apellido_materno` varchar(50) NOT NULL,
-  `carrera` varchar(50) NOT NULL,
+  `id_division` int(11) NOT NULL,
   `correo` varchar(100) NOT NULL,
-  `contrasena` varchar(200) NOT NULL
+  `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `alumno`
+-- Volcado de datos para la tabla `alumnos`
 --
 
-INSERT INTO `alumno` (`control`, `nombre`, `apellido_paterno`, `apellido_materno`, `carrera`, `correo`, `contrasena`) VALUES
-(223107494, 'Jaquelyn', 'Molina', 'Hernandez', 'Ingeniería Mecatrónica', 'DANIA@GMIAL.COM', '12345678'),
-(223107500, 'Amanda', 'Luna', 'Dominguez', 'Contaduria', 'jhon@gmail.com', '12345');
+INSERT INTO `alumnos` (`numero_control`, `nombre`, `apellido_paterno`, `apellido_materno`, `id_division`, `correo`, `id_usuario`) VALUES
+(223107402, 'Karla', 'Chavez', 'Castillo', 1, '223107402@cuautitlan.tecnm.mx', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `asistencia`
+--
+
+CREATE TABLE `asistencia` (
+  `id_asistencia` int(11) NOT NULL,
+  `id_grupo_alumno` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `id_estado_asistencia` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -84,18 +90,8 @@ CREATE TABLE `complementarias` (
 --
 
 INSERT INTO `complementarias` (`id_complementaria`, `nombre`, `descripcion`, `imagen`) VALUES
-(12, 'Photoshop', 'Aprende editar fotografia y video ', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-hiOfcwr8nRt826cIK7pn8cFCf-NWaUPvVQ&s'),
-(13, 'BANDA DE GUERRA', 'Desarrolla habilidades musicales y marciales formando parte de la Banda de Guerra. Aprende ritmo, coordinación y disciplina mientras participas en eventos cívicos y escolares.', '../img/imagenes-complementarias/banda-de-guerra.jpg'),
-(14, 'FÚTBOL', 'Participa en entrenamientos y torneos intercolegiales de fútbol. Desarrolla trabajo en equipo, resistencia y disciplina deportiva.', '../img/imagenes-complementarias/futbol.jpg'),
-(15, 'TEATRO', 'Explora tu creatividad escénica, expresión corporal y habilidades de comunicación mediante la actuación teatral', '../img/imagenes-complementarias/teatro.jpg'),
-(16, 'VOLEIBOL', 'Fortalece tu coordinación, reflejos y espíritu competitivo participando en los entrenamientos de voleibol. Aprende sobre estrategia, trabajo en conjunto y respeto por tus compañeros.', '../img/imagenes-complementarias/voleibol.jpg'),
-(17, 'Fotografía', 'Aprende a capturar momentos únicos con técnica y estilo. Este taller te enseña los fundamentos de la fotografía, desde el manejo de cámara hasta la edición básica de imágenes.', '../img/imagenes-complementarias/fotografia.jpg'),
-(18, 'AJEDREZ', 'Desarrolla tu pensamiento lógico y tu capacidad de análisis mediante el ajedrez. Participa en torneos y aprende estrategias para mejorar tu concentración y toma de decisiones.', '../img/imagenes-complementarias/ajedrez.jpg'),
-(19, 'ESCOLTA', 'Forma parte del grupo de escolta y representa con orgullo los valores institucionales en ceremonias cívicas. Mejora tu disciplina, porte y sentido de responsabilidad.', '../img/imagenes-complementarias/escolta.jpg'),
-(20, 'Básquetbol', 'Aumenta tu resistencia, precisión y reflejos participando en el equipo de básquetbol. Vive la emoción de la competencia mientras fortaleces tu cuerpo y mente.', '../img/imagenes-complementarias/basquetbol.jpg'),
-(22, 'Entrenamiento Fitness', 'Mejora tu salud y condición física mediante rutinas de fuerza, resistencia y flexibilidad. Este taller promueve un estilo de vida saludable y activo.', '../img/imagenes-complementarias/fitness.png'),
-(23, 'TOCHO', 'Participa en este deporte lleno de energía y trabajo en equipo. Aprende técnicas de agilidad, velocidad y estrategia sin contacto físico.', '../img/imagenes-complementarias/tocho.jpg'),
-(24, 'Lectura', 'Descubre el placer de la lectura compartiendo opiniones y reflexiones sobre obras literarias. Amplía tu vocabulario, comprensión y pensamiento crítico.', '../img/imagenes-complementarias/taller-de-lectura.jpg');
+(12, 'Photosho', 'Aprende editar fotografia y video ', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-hiOfcwr8nRt826cIK7pn8cFCf-NWaUPvVQ&s'),
+(27, 'Ajedres', 'Reta tu mete y mejora tu lógica', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9gkG6IEDoKrNpXdZE4VkZtGuTbvfuTyvVZA&s');
 
 -- --------------------------------------------------------
 
@@ -123,6 +119,64 @@ INSERT INTO `dia` (`id_dia`, `dia`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `divisiones`
+--
+
+CREATE TABLE `divisiones` (
+  `id_division` int(11) NOT NULL,
+  `division` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `divisiones`
+--
+
+INSERT INTO `divisiones` (`id_division`, `division`) VALUES
+(1, 'Sistemas Computacionales'),
+(2, 'Gestión Empresarial');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estados`
+--
+
+CREATE TABLE `estados` (
+  `id_estado` int(11) NOT NULL,
+  `estado` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estados`
+--
+
+INSERT INTO `estados` (`id_estado`, `estado`) VALUES
+(3, 'Visible'),
+(4, 'Oculta');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_asistencia`
+--
+
+CREATE TABLE `estado_asistencia` (
+  `id_estado_asistencia` int(11) NOT NULL,
+  `estado` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_asistencia`
+--
+
+INSERT INTO `estado_asistencia` (`id_estado_asistencia`, `estado`) VALUES
+(1, 'pendiente'),
+(2, 'Asistio'),
+(3, 'Falta');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `grupos`
 --
 
@@ -131,32 +185,23 @@ CREATE TABLE `grupos` (
   `id_complementaria` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL,
   `cupos_disponibles` int(11) NOT NULL,
-  `cupos_ocupados` int(11) NOT NULL,
   `creditos` int(11) NOT NULL,
-  `id_profesor` int(11) NOT NULL
+  `id_profesor` int(11) NOT NULL,
+  `id_periodo` int(11) NOT NULL,
+  `id_estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `grupos`
+-- Estructura de tabla para la tabla `grupo_alumno`
 --
 
-INSERT INTO `grupos` (`id_grupo`, `id_complementaria`, `nombre`, `cupos_disponibles`, `cupos_ocupados`, `creditos`, `id_profesor`) VALUES
-(2, 12, 'Photoshop 1', 1, 0, 2, 1),
-(3, 12, 'Photoshop 1', 1, 0, 2, 1),
-(4, 12, 'Photoshop 1', 1, 0, 2, 1),
-(5, 12, 'Photoshop 1', 1, 0, 2, 1),
-(6, 12, 'Photoshop 1', 1, 0, 2, 1),
-(7, 12, 'Photoshop 1', 1, 0, 2, 1),
-(8, 12, 'Photoshop 1', 1, 0, 2, 1),
-(9, 12, 'Photoshop 1', 1, 0, 2, 1),
-(10, 12, 'Photoshop 1', 1, 0, 2, 1),
-(11, 12, 'CANTOi', 4, 0, 1, 1),
-(15, 12, 'AJEDRES 1', 5, 0, 1, 1),
-(16, 12, 'Photoshop 3', 22, 0, 1, 1),
-(17, 12, 'Photoshop', 6, 0, 2, 1),
-(18, 12, 'Photoshop', 8, 0, 5, 1),
-(19, 12, 'AJEDREShh', 8, 0, 4, 1),
-(20, 12, 'BACHATA I', 22, 0, 3, 1);
+CREATE TABLE `grupo_alumno` (
+  `id_grupo_alumno` int(11) NOT NULL,
+  `id_grupo` int(11) NOT NULL,
+  `id_alumno` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -167,19 +212,21 @@ INSERT INTO `grupos` (`id_grupo`, `id_complementaria`, `nombre`, `cupos_disponib
 CREATE TABLE `horarios` (
   `id_horario` int(11) NOT NULL,
   `id_dia` int(6) NOT NULL,
-  `hora_inicio` time NOT NULL,
-  `hora_fin` time NOT NULL,
+  `hora_inicio` varchar(11) NOT NULL,
+  `hora_fin` varchar(11) NOT NULL,
   `id_grupo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `horarios`
+-- Estructura de tabla para la tabla `periodo`
 --
 
-INSERT INTO `horarios` (`id_horario`, `id_dia`, `hora_inicio`, `hora_fin`, `id_grupo`) VALUES
-(9, 1, '16:00:00', '17:00:00', 19),
-(10, 2, '15:00:00', '16:00:00', 20),
-(11, 2, '13:00:00', '14:00:00', 20);
+CREATE TABLE `periodo` (
+  `id_periodo` int(11) NOT NULL,
+  `periodo` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -192,17 +239,58 @@ CREATE TABLE `profesores` (
   `nombre` varchar(50) NOT NULL,
   `apellido_paterno` varchar(50) NOT NULL,
   `apellido_materno` varchar(50) NOT NULL,
-  `usuario` varchar(50) NOT NULL,
-  `contrasena` varchar(200) NOT NULL,
-  `correo` varchar(100) NOT NULL
+  `correo` varchar(100) NOT NULL,
+  `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `profesores`
 --
 
-INSERT INTO `profesores` (`id_profesor`, `nombre`, `apellido_paterno`, `apellido_materno`, `usuario`, `contrasena`, `correo`) VALUES
-(1, 'Elsa', 'Sanchez', 'Peres', 'Elvira1234', '12345678', 'elvira_sanchez@gmail.com');
+INSERT INTO `profesores` (`id_profesor`, `nombre`, `apellido_paterno`, `apellido_materno`, `correo`, `id_usuario`) VALUES
+(5, 'Victoria', 'Ramos', 'Perez', 'viki123@hotmail.com', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipos_usuarios`
+--
+
+CREATE TABLE `tipos_usuarios` (
+  `id_tipo_usuario` int(11) NOT NULL,
+  `tipo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipos_usuarios`
+--
+
+INSERT INTO `tipos_usuarios` (`id_tipo_usuario`, `tipo`) VALUES
+(1, 'Alumno '),
+(2, 'Profesor'),
+(3, 'Administrador');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id_usuario` int(11) NOT NULL,
+  `id_tipo_usuario` int(11) NOT NULL,
+  `usuario` varchar(30) NOT NULL,
+  `contrasena` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usuario`, `id_tipo_usuario`, `usuario`, `contrasena`) VALUES
+(1, 1, '223107402', '123456789'),
+(2, 3, 'admin123', '123456789'),
+(3, 2, 'Victoria Ramos Perez', '123456789');
 
 --
 -- Índices para tablas volcadas
@@ -212,14 +300,24 @@ INSERT INTO `profesores` (`id_profesor`, `nombre`, `apellido_paterno`, `apellido
 -- Indices de la tabla `administrador`
 --
 ALTER TABLE `administrador`
-  ADD PRIMARY KEY (`id_admin`),
-  ADD UNIQUE KEY `usuario` (`usuario`);
+  ADD PRIMARY KEY (`id_administrador`),
+  ADD KEY `fk_administrador_usuario` (`id_usuario`);
 
 --
--- Indices de la tabla `alumno`
+-- Indices de la tabla `alumnos`
 --
-ALTER TABLE `alumno`
-  ADD PRIMARY KEY (`control`);
+ALTER TABLE `alumnos`
+  ADD PRIMARY KEY (`numero_control`),
+  ADD KEY `fk_alumnos_usuarios` (`id_usuario`),
+  ADD KEY `fk_alumnos_divisiones` (`id_division`);
+
+--
+-- Indices de la tabla `asistencia`
+--
+ALTER TABLE `asistencia`
+  ADD PRIMARY KEY (`id_asistencia`),
+  ADD KEY `fk_asistencia_grupo_alumno` (`id_grupo_alumno`),
+  ADD KEY `fk_asistencia_estado` (`id_estado_asistencia`);
 
 --
 -- Indices de la tabla `complementarias`
@@ -235,26 +333,74 @@ ALTER TABLE `dia`
   ADD PRIMARY KEY (`id_dia`);
 
 --
+-- Indices de la tabla `divisiones`
+--
+ALTER TABLE `divisiones`
+  ADD PRIMARY KEY (`id_division`);
+
+--
+-- Indices de la tabla `estados`
+--
+ALTER TABLE `estados`
+  ADD PRIMARY KEY (`id_estado`);
+
+--
+-- Indices de la tabla `estado_asistencia`
+--
+ALTER TABLE `estado_asistencia`
+  ADD PRIMARY KEY (`id_estado_asistencia`);
+
+--
 -- Indices de la tabla `grupos`
 --
 ALTER TABLE `grupos`
   ADD PRIMARY KEY (`id_grupo`),
-  ADD KEY `fk_Grupos_Complementarias` (`id_complementaria`),
-  ADD KEY `fk_Grupos_Profesores` (`id_profesor`);
+  ADD KEY `fk_grupos_periodo` (`id_periodo`),
+  ADD KEY `fk_grupos_estado` (`id_estado`),
+  ADD KEY `fk_grupos_profesor` (`id_profesor`),
+  ADD KEY `fk_grupos_complementaria` (`id_complementaria`);
+
+--
+-- Indices de la tabla `grupo_alumno`
+--
+ALTER TABLE `grupo_alumno`
+  ADD PRIMARY KEY (`id_grupo_alumno`),
+  ADD KEY `fk_ga_grupo` (`id_grupo`),
+  ADD KEY `fk_ga_alumno` (`id_alumno`);
 
 --
 -- Indices de la tabla `horarios`
 --
 ALTER TABLE `horarios`
   ADD PRIMARY KEY (`id_horario`),
-  ADD KEY `fk_horarios_dia` (`id_dia`),
-  ADD KEY `fk_Horarios_Grupos` (`id_grupo`);
+  ADD KEY `fk_horarios_grupo` (`id_grupo`),
+  ADD KEY `fk_horarios_dia` (`id_dia`);
+
+--
+-- Indices de la tabla `periodo`
+--
+ALTER TABLE `periodo`
+  ADD PRIMARY KEY (`id_periodo`);
 
 --
 -- Indices de la tabla `profesores`
 --
 ALTER TABLE `profesores`
-  ADD PRIMARY KEY (`id_profesor`);
+  ADD PRIMARY KEY (`id_profesor`),
+  ADD KEY `fk_profesores_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `tipos_usuarios`
+--
+ALTER TABLE `tipos_usuarios`
+  ADD PRIMARY KEY (`id_tipo_usuario`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `fk_usuarios_tipos_usuarios` (`id_tipo_usuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -264,13 +410,19 @@ ALTER TABLE `profesores`
 -- AUTO_INCREMENT de la tabla `administrador`
 --
 ALTER TABLE `administrador`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_administrador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT de la tabla `asistencia`
+--
+ALTER TABLE `asistencia`
+  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `complementarias`
 --
 ALTER TABLE `complementarias`
-  MODIFY `id_complementaria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_complementaria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `dia`
@@ -279,40 +431,123 @@ ALTER TABLE `dia`
   MODIFY `id_dia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `divisiones`
+--
+ALTER TABLE `divisiones`
+  MODIFY `id_division` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `estados`
+--
+ALTER TABLE `estados`
+  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `estado_asistencia`
+--
+ALTER TABLE `estado_asistencia`
+  MODIFY `id_estado_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `grupos`
 --
 ALTER TABLE `grupos`
-  MODIFY `id_grupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_grupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT de la tabla `grupo_alumno`
+--
+ALTER TABLE `grupo_alumno`
+  MODIFY `id_grupo_alumno` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `horarios`
 --
 ALTER TABLE `horarios`
-  MODIFY `id_horario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_horario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT de la tabla `periodo`
+--
+ALTER TABLE `periodo`
+  MODIFY `id_periodo` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `profesores`
 --
 ALTER TABLE `profesores`
-  MODIFY `id_profesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_profesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `tipos_usuarios`
+--
+ALTER TABLE `tipos_usuarios`
+  MODIFY `id_tipo_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
+-- Filtros para la tabla `administrador`
+--
+ALTER TABLE `administrador`
+  ADD CONSTRAINT `fk_administrador_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `alumnos`
+--
+ALTER TABLE `alumnos`
+  ADD CONSTRAINT `fk_alumnos_divisiones` FOREIGN KEY (`id_division`) REFERENCES `divisiones` (`id_division`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_alumnos_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `asistencia`
+--
+ALTER TABLE `asistencia`
+  ADD CONSTRAINT `fk_asistencia_estado` FOREIGN KEY (`id_estado_asistencia`) REFERENCES `estado_asistencia` (`id_estado_asistencia`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_asistencia_grupo_alumno` FOREIGN KEY (`id_grupo_alumno`) REFERENCES `grupo_alumno` (`id_grupo_alumno`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `grupos`
 --
 ALTER TABLE `grupos`
-  ADD CONSTRAINT `fk_Grupos_Complementarias` FOREIGN KEY (`id_complementaria`) REFERENCES `complementarias` (`id_complementaria`),
-  ADD CONSTRAINT `fk_Grupos_Profesores` FOREIGN KEY (`id_profesor`) REFERENCES `profesores` (`id_profesor`);
+  ADD CONSTRAINT `fk_grupos_complementaria` FOREIGN KEY (`id_complementaria`) REFERENCES `complementarias` (`id_complementaria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_grupos_estado` FOREIGN KEY (`id_estado`) REFERENCES `estados` (`id_estado`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_grupos_periodo` FOREIGN KEY (`id_periodo`) REFERENCES `periodo` (`id_periodo`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_grupos_profesor` FOREIGN KEY (`id_profesor`) REFERENCES `profesores` (`id_profesor`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `grupo_alumno`
+--
+ALTER TABLE `grupo_alumno`
+  ADD CONSTRAINT `fk_ga_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumnos` (`numero_control`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_ga_grupo` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `horarios`
 --
 ALTER TABLE `horarios`
-  ADD CONSTRAINT `fk_Horarios_Grupos` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`),
-  ADD CONSTRAINT `fk_horarios_dia` FOREIGN KEY (`id_dia`) REFERENCES `dia` (`id_dia`);
+  ADD CONSTRAINT `fk_horarios_dia` FOREIGN KEY (`id_dia`) REFERENCES `dia` (`id_dia`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_horarios_grupo` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `profesores`
+--
+ALTER TABLE `profesores`
+  ADD CONSTRAINT `fk_profesores_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `fk_usuarios_tipos_usuarios` FOREIGN KEY (`id_tipo_usuario`) REFERENCES `tipos_usuarios` (`id_tipo_usuario`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

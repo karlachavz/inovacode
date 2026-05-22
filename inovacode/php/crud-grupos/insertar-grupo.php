@@ -4,39 +4,53 @@ $CON = conectar();
 
 // Verificar que todos los campos requeridos estén presentes
 if (!isset($_POST['nombre'], $_POST['id_profesor'], $_POST['creditos'], 
-           $_POST['dia1'], $_POST['hora_inicio1'], $_POST['hora_fin1'],
+           $_POST['id_dia1'], $_POST['hora_inicio1'], $_POST['hora_fin1'],
            $_POST['cupos'], $_POST['id_complementaria'])) {
     header("Location: ../../administrador/ver-complementarias.php?mensaje=error&ID=" . $_POST['id_complementaria']);
     exit;
 }
 
 // Obtener variables del método POST
+
+//variables para dar de alta complementaria
+$id_complementaria = $_POST['id_complementaria'];
 $nombre = $_POST['nombre'];
-$id_profesor = $_POST['id_profesor'];
+$cupos = $_POST['cupos'];
 $creditos = $_POST['creditos'];
-$dia1 = $_POST['dia1'];
+$id_profesor = $_POST['id_profesor'];
+//$id_periodo= $_POST['id_periodo'];   se agregara este campo como mejora
+
+//variables para establecer el horario del dia 1
+$id_dia1 = $_POST['id_dia1'];
 $hora_inicio1 = $_POST['hora_inicio1'];
 $hora_fin1 = $_POST['hora_fin1'];
-$cupos = $_POST['cupos'];
-$id_complementaria = $_POST['id_complementaria'];
+
+
 
 // Validar horas
 if ($hora_inicio1 >= $hora_fin1) {
-    header("Location: ../../administrador/ver-complementarias.php?mensaje=error_horas&ID=$id_complementaria");
-    exit;
+   // header("Location: ../../administrador/ver-complementarias.php?mensaje=error_horas&ID=$id_complementaria");
+   // exit;
 }
 
 // INSERTAR NUEVO GRUPO 
-$consulta = "INSERT INTO grupos (id_complementaria, nombre, cupos_disponibles, creditos, id_profesor) 
-             VALUES ($id_complementaria, '$nombre', $cupos, $creditos, $id_profesor)";
+$consulta = "INSERT INTO grupos (id_complementaria, nombre, cupos_disponibles, creditos, id_profesor,id_estado) 
+             VALUES ($id_complementaria, '$nombre', $cupos, $creditos, $id_profesor, 1)";
+
+
+
+
 
 try {
+    //insertar grupo nuevo
     $CON->query($consulta);
-    $id_grupo = $CON->insert_id; // Obtener el ID del grupo recién insertado
+    // Obtener el ID del grupo recién insertado
+    $id_grupo = $CON->insert_id; 
     
     // Insertar primer horario
-    $consulta_horario1 = "INSERT INTO horarios (id_grupo, id_dia, hora_inicio, hora_fin) 
-                         VALUES ($id_grupo, $dia1, '$hora_inicio1', '$hora_fin1')";
+    $consulta_horario1 = "INSERT INTO horarios (id_dia,hora_inicio, hora_fin, id_grupo) 
+                         VALUES ( $id_dia1, '$hora_inicio1', '$hora_fin1',$id_grupo,)";
+                         
     $CON->query($consulta_horario1);
     
     // Verificar si hay segundo día (usando el checkbox y los campos)
@@ -72,9 +86,8 @@ try {
     } else {
         // Mostrar el error para depuración (en desarrollo)
         // En producción, redirigir con mensaje genérico
-        error_log("Error al insertar grupo: " . $e->getMessage());
-        header("Location: ../../administrador/ver-complementarias.php?mensaje=error_db&ID=$id_complementaria");
+       // error_log("Error al insertar grupo: " . $e->getMessage());
+        //header("Location: ../../administrador/ver-complementarias.php?mensaje=error_db&ID=$id_complementaria");
     }
     exit;
 }
-?>
