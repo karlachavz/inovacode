@@ -60,9 +60,16 @@
     <div class="container d-flex justify-content-center mt-5 mb-5">
 
         <div class="card p-4 ">
-            <h2>Crear cuenta de aumno</h2>
+            <h2>Crear cuenta de alumno</h2>
             <!--Mensaje de error: en caso de intentar dar de alta un alumno con número de control ya registrado-->
             <?php
+
+            if (isset($_GET['mensaje']) && $_GET['mensaje'] == "exito") {
+                echo "<div class='alert alert-success' role='alert'>Cuenta nueva creada exitosamente</div>";
+            }
+
+
+
             if (isset($_GET['error'])) {
 
                 if ($_GET['error'] == "duplicado") {
@@ -70,7 +77,7 @@
                 }
 
                 if ($_GET['error'] == "desconocido") {
-                   echo "<div class='alert alert-danger' role='alert'>Ha ocurrido un error inesperado al reg.</div>";
+                    echo "<div class='alert alert-danger' role='alert'>Ha ocurrido un error inesperado al reg.</div>";
                 }
             }
             ?>
@@ -109,22 +116,18 @@
                         </div>
 
                     </div>
-                   
+
                     <div class="col">
                         <div class="mb-3 text-start ">
                             <label for="carrera" class="form-label fw-bold">Carrera</label>
-                            <select name="c" id="carrera" class="form-select" required>
-                                <option value="">--Selecciona la carrera--</option>
-                                <option value="Ingeniería en Gestión Empresarial">Ingeniería en Gestión Empresarial</option>
-                                <option value="Ingeniería en Sistemas Computacionales">Ingeniería en Sistemas Computacionales</option>
-                                <option value="Ingeniería en Tecnologías de la Información y Comunicación">Ingeniería en Tecnologías de la Información y Comunicación</option>
-                                <option value="Ingeniería en Administración">Ingeniería en Administración</option>
-                                <option value="Ingeniería Química">Ingeniería Química</option>
-                                <option value="Contador Público">Contador Público</option>
-                                <option value="Ingeniería Industrial">Ingeniería Industrial</option>
-                                <option value="Ingeniería en Logística">Ingeniería en Logística</option>
-                                <option value="Ingeniería en Semiconductores">Ingeniería en Semiconductores</option>
-                                <option value="Ingeniería Mecatrónica">Ingeniería Mecatrónica</option>
+                            <select name="id_division" id="carrera" class="form-select" required>
+                                <option value="1">Ingeniería en Sistemas Computacionales</option>
+                                <option value="2">Ingeniería en Gestión Empresarial</option>
+                                <option value="3">Ingeniería Química</option>
+                                <option value="4">Contador Público</option>
+                                <option value="5">Ingeniería Industrial</option>
+                                <option value="6">Ingeniería Lógistica </option>
+                                <option value="7">Ingeniería Mecatrónica</option>
                             </select>
                         </div>
 
@@ -140,7 +143,7 @@
                                 required minlength="8" maxlength="20" title="Debe tener entre 6 y 20 caracteres">
                         </div>
 
-                        
+
                     </div>
                 </div>
 

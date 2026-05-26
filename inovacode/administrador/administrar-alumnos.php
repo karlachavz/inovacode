@@ -13,64 +13,64 @@
 <body>
   <!--NAVBAR  (.navbar-nav-scroll)-->
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary ">
-        <div class="container-fluid">
-            <!--logo y marca -->
-            <a class="navbar-brand d-flex align-items-center">
-                <img src="../img/logo.jpeg" alt="Logo" width="50" height="50"
-                    class="d-inline-block align-text-top me-2">
-                <div class="d-flex flex-column">
-                    <span class="fw-bold">INNOVACODE</span>
-                    <small>Actividades complementarias</small>
-                </div>
-            </a>
-
-
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarNav">
-                <ul class="navbar-nav ms-auto me-1 ">
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Usuarios
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="administrar-administradores.php">Administrar cuentas
-                                    administrativas</a></li>
-                            <li><a class="dropdown-item" href="administrar-alumnos.php">Administrar cuentas de
-                                    alumnos</a></li>
-                            <li><a class="dropdown-item" href="administrar-profesores.php">Administrar cuentas de
-                                    profesores</a></li>
-                        </ul>
-                    </li>
-
-
-
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Descarga</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="menu-administrador.php">Actividades
-                            complementarias</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="../index.html">Cerrar sesión</a>
-                    </li>
-                </ul>
-
-                <a class=" d-flex flex-column p-0 " aria-disabled="true"><img src="../img/perfil.png" alt="Logo"
-                        width="30" height="30" class="d-inline-block align-text-end d-none d-md-block">Administrador</a>
-            </div>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary ">
+    <div class="container-fluid">
+      <!--logo y marca -->
+      <a class="navbar-brand d-flex align-items-center">
+        <img src="../img/logo.jpeg" alt="Logo" width="50" height="50"
+          class="d-inline-block align-text-top me-2">
+        <div class="d-flex flex-column">
+          <span class="fw-bold">INNOVACODE</span>
+          <small>Actividades complementarias</small>
         </div>
-    </nav>
-    
+      </a>
+
+
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse " id="navbarNav">
+        <ul class="navbar-nav ms-auto me-1 ">
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Usuarios
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="administrar-administradores.php">Administrar cuentas
+                  administrativas</a></li>
+              <li><a class="dropdown-item" href="administrar-alumnos.php">Administrar cuentas de
+                  alumnos</a></li>
+              <li><a class="dropdown-item" href="administrar-profesores.php">Administrar cuentas de
+                  profesores</a></li>
+            </ul>
+          </li>
+
+
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Descarga</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="menu-administrador.php">Actividades
+              complementarias</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html">Cerrar sesión</a>
+          </li>
+        </ul>
+
+        <a class=" d-flex flex-column p-0 " aria-disabled="true"><img src="../img/perfil.png" alt="Logo"
+            width="30" height="30" class="d-inline-block align-text-end d-none d-md-block">Administrador</a>
+      </div>
+    </div>
+  </nav>
+
   <!--CONTENIDO-->
   <div class="container  justify-content-center mt-5 mb-5">
 
@@ -78,22 +78,22 @@
     <div class="text-center ">
       <h2>Crear nuevo alumno</h2>
 
-          <?php
-            if (isset($_GET['mensaje'])) {
+      <?php
+      if (isset($_GET['mensaje'])) {
 
-                if ($_GET['mensaje'] == "duplicado") {
-                    echo "<div class='alert alert-danger' role='alert'>El número de control ya existe.</div>";
-                }
+        if ($_GET['mensaje'] == "duplicado") {
+          echo "<div class='alert alert-danger' role='alert'>El número de control ya existe.</div>";
+        }
 
-                if ($_GET['mensaje'] == "exitoso") {
-                    echo "<div class='alert alert-success' role='alert'>Se ha creado su cuenta exitosamente.</div>";
-                }
+        if ($_GET['mensaje'] == "exito") {
+          echo "<div class='alert alert-success' role='alert'>Se ha creado su cuenta exitosamente.</div>";
+        }
 
-                if ($_GET['mensaje'] == "desconocido") {
-                   echo "<div class='alert alert-danger' role='alert'>Ha ocurrido un error inesperado al reg.</div>";
-                }
-            }
-          ?>
+        if ($_GET['mensaje'] == "desconocido") {
+          echo "<div class='alert alert-danger' role='alert'>Ha ocurrido un error inesperado al reg.</div>";
+        }
+      }
+      ?>
 
       <form action="../php/crud-cuentas-alumnos/insertar-alumnos.php" method="post">
         <div class="row">
@@ -126,20 +126,16 @@
 
           <div class="mb-3 text-start col-12 col-md-6 col-lg-4">
             <label for="carrera" class="form-label fw-bold">Carrera</label>
-            <select name="c" id="carrera" class="form-select" required>
-            <option value="">--Selecciona la carrera--</option>
-            <option value="Ingeniería en Gestión Empresarial">Ingeniería en Gestión Empresarial</option>
-            <option value="Ingeniería en Sistemas Computacionales">Ingeniería en Sistemas Computacionales</option>
-            <option value="Ingeniería en Tecnologías de la Información y Comunicación">Ingeniería en Tecnologías de la Información y Comunicación</option>
-            <option value="Ingeniería en Administración">Ingeniería en Administración</option>
-            <option value="Ingeniería Química">Ingeniería Química</option>
-            <option value="Contador Público">Contador Público</option>
-            <option value="Ingeniería Industrial">Ingeniería Industrial</option>
-            <option value="Ingeniería en Logística">Ingeniería en Logística</option>
-            <option value="Ingeniería en Semiconductores">Ingeniería en Semiconductores</option>
-            <option value="Ingeniería Mecatrónica">Ingeniería Mecatrónica</option>
-          </select>
-        </div>
+            <select name="id_division" id="carrera" class="form-select" required>
+              <option value="1">Ingeniería en Sistemas Computacionales</option>
+              <option value="2">Ingeniería en Gestión Empresarial</option>
+              <option value="3">Ingeniería Química</option>
+              <option value="4">Contador Público</option>
+              <option value="5">Ingeniería Industrial</option>
+              <option value="6">Ingeniería Lógistica </option>
+              <option value="7">Ingeniería Mecatrónica</option>
+            </select>
+          </div>
 
 
           <div class="mb-3 text-start col-12 col-md-6  col-lg-4">
@@ -157,48 +153,48 @@
 
           <div class="mt-4 text-start col-12 col-md-6  col-lg-4">
             <button type="submit" class="btn btn-custom">Crear cuenta</button>
-          </div>   
-        </div> 
+          </div>
+        </div>
       </form><!--fin del formulario-->
     </div>
 
     <hr>
 
     <!-- buscar alumno -->
-    
+
     <h3 class="mt-5">Buscar alumnos</h3>
     <form action="bucar alumno">
-        <div class="row  mb-5">
+      <div class="row  mb-5">
 
-          <div class="col-2">
-            <label class="form-label" for="division">División:</label>
-          </div>
-
-          <div class="col-6">
-            <select name="division" id="filtro" class="form-select">
-              <option value="">--Selecciona la carrera--</option>
-              <option value="">Ingenieria en Gestion Empresarial</option>
-              <option value="">Ingenieria en Sistemas Computacionales </option>
-              <option value="">Ingenieria en Tecnologias de la Informacion y Comunicación</option>
-              <option value="">Ingenieria en Administración</option>
-              <option value="">Ingenieria Química</option>
-              <option value="">Contador Público</option>
-              <option value="">Ingenieria Industrial</option>
-              <option value="">Ingenieria en Logística</option>
-              <option value="">Ingenieria en Semiconductores</option>
-              <option value="">Ingenieria Mecatrónica</option>
-
-            </select>
-          </div>
-
-          <div class="col-4">
-              <input type="text" placeholder="buscar alumno" class="form-control" >
-          </div>
-            
+        <div class="col-2">
+          <label class="form-label" for="division">División:</label>
         </div>
+
+        <div class="col-6">
+          <select name="division" id="filtro" class="form-select">
+            <option value="">--Selecciona la carrera--</option>
+            <option value="">Ingenieria en Gestion Empresarial</option>
+            <option value="">Ingenieria en Sistemas Computacionales </option>
+            <option value="">Ingenieria en Tecnologias de la Informacion y Comunicación</option>
+            <option value="">Ingenieria en Administración</option>
+            <option value="">Ingenieria Química</option>
+            <option value="">Contador Público</option>
+            <option value="">Ingenieria Industrial</option>
+            <option value="">Ingenieria en Logística</option>
+            <option value="">Ingenieria en Semiconductores</option>
+            <option value="">Ingenieria Mecatrónica</option>
+
+          </select>
+        </div>
+
+        <div class="col-4">
+          <input type="text" placeholder="buscar alumno" class="form-control">
+        </div>
+
+      </div>
     </form>
-        
-  
+
+
     <!-- TABLA DE ALUMNOS -->
     <div class="table-responsive mb-5 text-center ">
 
@@ -217,36 +213,36 @@
           </tr>
         </thead>
         <tbody>
-          <?php 
-            $valores = consultar_tabla_alumnos();
-            while($p = $valores->fetch_assoc()){ 
+          <?php
+          $valores = consultar_tabla_alumnos();
+          while ($p = $valores->fetch_assoc()) {
           ?>
-          <tr>
-            <td><?= $p['control']; ?></td>
-            <td><?= $p['nombre']; ?></td>
-            <td><?= $p['apellido_paterno']; ?></td>
-            <td><?= $p['apellido_materno']; ?></td>
-            <td><?= $p['carrera']; ?></td>
-            <td><?= $p['correo']; ?></td>
-            <td class=" table-success">
-              <div class="d-flex">
-                 <button class="btn btn-primary btn-sm"
-                data-bs-toggle="modal" 
-                data-bs-target="#modalEditar"
-                data-id="<?= $p['control']; ?>"
-                data-nombre="<?= $p['nombre']; ?>"
-                data-ap1="<?= $p['apellido_paterno']; ?>"
-                data-ap2="<?= $p['apellido_materno']; ?>"
-                data-carrera="<?= $p['carrera']; ?>"
-                data-correo="<?= $p['correo']; ?>"
-                data-pass="<?= $p['contrasena']; ?>" title="Editar">
-                <i class="bi bi-pencil-square"></i>
-              </button>
-              <a href="../php/crud-cuentas-alumnos/eliminar-alumno.php?ID=<?= $p['control']; ?>" 
-                 class="btn btn-danger btn-sm" title="Eliminar"><i class="bi bi-trash"></i></a>
-              </div>
-            </td>
-          </tr>
+            <tr>
+              <td><?= $p['control']; ?></td>
+              <td><?= $p['nombre']; ?></td>
+              <td><?= $p['apellido_paterno']; ?></td>
+              <td><?= $p['apellido_materno']; ?></td>
+              <td><?= $p['carrera']; ?></td>
+              <td><?= $p['correo']; ?></td>
+              <td class=" table-success">
+                <div class="d-flex">
+                  <button class="btn btn-primary btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalEditar"
+                    data-id="<?= $p['control']; ?>"
+                    data-nombre="<?= $p['nombre']; ?>"
+                    data-ap1="<?= $p['apellido_paterno']; ?>"
+                    data-ap2="<?= $p['apellido_materno']; ?>"
+                    data-carrera="<?= $p['carrera']; ?>"
+                    data-correo="<?= $p['correo']; ?>"
+                    data-pass="<?= $p['contrasena']; ?>" title="Editar">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <a href="../php/crud-cuentas-alumnos/eliminar-alumno.php?ID=<?= $p['control']; ?>"
+                    class="btn btn-danger btn-sm" title="Eliminar"><i class="bi bi-trash"></i></a>
+                </div>
+              </td>
+            </tr>
           <?php } ?>
         </tbody>
       </table>
@@ -266,7 +262,7 @@
         </div>
         <form action="../php/crud-cuentas-alumnos/actualizar-alumno.php" method="POST">
           <div class="modal-body">
-            
+
             <input type="hidden" name="id" id="editId">
 
             <div class="mb-3">
@@ -308,7 +304,7 @@
       </div>
     </div>
   </div>
-           
+
 
   <br><br><br><br><br>
 
@@ -338,4 +334,5 @@
   </script>
 
 </body>
+
 </html>

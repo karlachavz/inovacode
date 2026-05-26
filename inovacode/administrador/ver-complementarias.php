@@ -20,7 +20,7 @@
     }
 
 
-    .acciones{
+    .acciones {
         display: flex;
         justify-content: space-between;
     }
@@ -131,11 +131,20 @@
 
 
                 <div>
-                    <label for="periodo filtro">Periodo</label>
+                    <label for="periodo filtro">Período</label>
                     <select name="periodio_filtro" id="periodo_filtro">
-                        <option value="">2025-2</option>
-                        <option value="" selected>2026-1</option>
-                        <option value="">2025-1</option>
+                        <?php
+                        $sql = "SELECT * FROM periodo ORDER BY id_periodo  DESC";
+
+                        $resultado = $conexion->query($sql);
+
+                        while ($periodo = $resultado->fetch_assoc()) { ?>
+
+                            <option value="<?= $periodo['id_periodo'] ?>">
+                                <?= $periodo['periodo'] ?>
+                            </option>
+
+                        <?php } ?>
                     </select>
                 </div>
 
@@ -155,10 +164,27 @@
                         <!-- FORMULARIO PARA INSERTAR un nuevo grupo -->
                         <form action="../php/crud-grupos/insertar-grupo.php" method="post">
                             <div class="modal-body">
+
                                 <input type="text" name="id_complementaria" value="<?= $p['id_complementaria'] ?>" hidden>
 
+                                <label for="">Perído</label>
+                                <select name="id_periodo" id="id_periodo" class="form-select">
+                                    <?php
+                                    $sql = "SELECT * FROM periodo ORDER BY id_periodo  DESC";
+
+                                    $resultado = $conexion->query($sql);
+
+                                    while ($periodo = $resultado->fetch_assoc()) { ?>
+
+                                        <option value="<?= $periodo['id_periodo'] ?>">
+                                            <?= $periodo['periodo'] ?>
+                                        </option>
+
+                                    <?php } ?>
+                                </select>
+
                                 <label for="" class="form-label mt-2">Nombre del grupo</label>
-                                <input type="text" class="form-control" name="nombre" placeholder="Ejemplo:<?= $p['nombre'] ?>  1" required>
+                                <input type="text" class="form-control" name="nombre" placeholder="Ejemplo: <?= $p['nombre'] ?>  1" required>
 
                                 <label for="" class="form-label mt-2">Profesor</label>
                                 <select class="form-select" name="id_profesor">
@@ -166,17 +192,21 @@
                                     <?php
                                     $sql = "SELECT id_profesor, nombre, apellido_paterno, apellido_materno FROM profesores;";
                                     $resultado = $conexion->query($sql);
-                                    while ($p = $resultado->fetch_assoc()) { ?>
-                                        <option value="<?= $p['id_profesor'] ?>">
-                                            <?= $p['nombre'] ?> <?= $p['apellido_paterno'] ?> <?= $p['apellido_materno'] ?>
+
+                                    while ($profesor = $resultado->fetch_assoc()) { ?>
+
+                                        <option value="<?= $profesor['id_profesor'] ?>">
+                                            <?= $profesor['nombre'] ?>
+                                            <?= $profesor['apellido_paterno'] ?>
+                                            <?= $profesor['apellido_materno'] ?>
                                         </option>
-                                    <?php }
-                                    ?>
+
+                                    <?php } ?>
                                 </select>
 
                                 <label for="" class="form-label mt-2">Creditos</label>
                                 <select class="form-select" name="creditos" required>
-                                    <option value="1">1</option>
+                                    <option value="1" selected>1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
@@ -361,7 +391,7 @@
                         $alert_message = "Grupo creado correctamente.";
                         break;
 
-                    case "error":
+                    case "error_campos":
                         $alert_class = "danger";
                         $alert_title = "Error";
                         $alert_message = "Faltan campos obligatorios. Por favor, complete todos los campos requeridos.";
@@ -382,7 +412,7 @@
                     case "error_db":
                         $alert_class = "danger";
                         $alert_title = "Error del sistema";
-                        $alert_message = "Ha ocurrido un pro    blema    al guardar los datos. Intente nuevamente.";
+                        $alert_message = "Ha ocurrido un problema al guardar los datos. Intente nuevamente.";
                         break;
 
                     case "desconocido":

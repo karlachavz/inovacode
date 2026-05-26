@@ -27,11 +27,12 @@
 
       <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Menú principal
+          Canbiar tipo de cuenta
         </button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="../alumno/login-alumno.php">Alumno</a></li>
           <li><a class="dropdown-item" href="login-administrador.php">Administrador</a></li>
+          <li><a class="dropdown-item" href="../profesor/login.php">Profesor</a></li>
         </ul>
       </div>
     </div>

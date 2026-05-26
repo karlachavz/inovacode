@@ -8,14 +8,12 @@
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <title>Complementarias</title>
   <link rel="stylesheet" href="../css/estilos.css">
-
-
 </head>
 
 
 <style>
   body {
-    background-image: url("../img/fondo-login-alumno.jpg");
+    background-image: url("../img/fondo_profesor.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -61,9 +59,9 @@
         Canbiar tipo de cuenta
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="login-alumno.php">Alumno</a></li>
+          <li><a class="dropdown-item" href="../alumno/login-alumno.php">Alumno</a></li>
           <li><a class="dropdown-item" href="../administrador/login.php">Administrador</a></li>
-          <li ><a  class="dropdown-item" href="../profesor/login.php">Profesor</a></li>
+          <li ><a  class="dropdown-item" href="login.php">Profesor</a></li>
         </ul>
       </div>
     </div>
@@ -77,7 +75,7 @@
     <div class="card shadow-lg border-0 ">
 
       <div class="card-body">
-        <h2 class="card-title text-center">Inicio de sesión alumno</h2>
+        <h2 class="card-title text-center">Inicio de sesión profesor</h2>
         
         <?php
             if (isset($_GET['error'])) {
@@ -85,23 +83,22 @@
                 if ($_GET['error'] == "incorrecto") {
                     echo "<div class='alert alert-danger' role='alert'>Usuario o contraseña incorrecta</div>";
                 }
+                if ($_GET['error'] == "campos") {
+                    echo "<div class='alert alert-danger' role='alert'>Error asegurese de llenar todos los campos</div>";
+                }
+
+                
             }
           ?>
 
 
-        <form action="../php/login/validar-login-alumno.php" method="post">
+        <form action="../php/login/validar-login-profesor.php" method="post">
           
-          <label for="" class="form-label mt-1">Número de control</label>
-          <input type="text" class="form-control" id="" name="no_control" placeholder="Ej. 203107400" required
-            pattern="[0-9]{9}" title="Debe contener exactamente 9 dígitos numéricos">
+          <label for="" class="form-label mt-1">Usuario</label>
+          <input type="text" class="form-control" id="" name="usuario" required >
           <label for="" class="form-label mt-2">Contraseña</label>
           <input type="password" class="form-control" id="contrasena" name="contrasena"
             placeholder="Ingresa tu contraseña" required>
-
-          <div class="text-center">
-            <a href="crear-cuenta-nueva-alumno.php">¿No cuentas con una cuenta? crearla aquí</a>
-          </div>
-
           <div class="text-center mt-2">
             <input type="submit" class="btn btn-primary" value="Iniciar sesión">
           </div>
@@ -111,15 +108,7 @@
     </div>
   </div>
 
-
- 
-
-
-
-
-
-
-
+  <br><br><br>
 
   <!--PIE DE PÁGINA-->
 
