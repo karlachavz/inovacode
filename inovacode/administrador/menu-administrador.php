@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+// Verificar que el usuario haya iniciado sesión
+if (!isset($_SESSION['admin_usuario'])) {
+  header("Location: ../alumno/login-alumno.php");
+  exit();
+}
+
+// Obtener el ID de usuario de la sesión
+$id_usuario =  $_SESSION['id_usuario'];
+$usuario = $_SESSION['admin_usuario'];
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,19 +61,21 @@
                             Usuarios
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="administrar-administradores.php">Administrar cuentas
+                            <li><a class="dropdown-item" href="administrar-administradores.php">Cuentas
                                     administrativas</a></li>
-                            <li><a class="dropdown-item" href="administrar-alumnos.php">Administrar cuentas de
+                            <li><a class="dropdown-item" href="administrar-alumnos.php">Cuentas de
                                     alumnos</a></li>
-                            <li><a class="dropdown-item" href="administrar-profesores.php">Administrar cuentas de
+                            <li><a class="dropdown-item" href="administrar-profesores.php">Cuentas de
                                     profesores</a></li>
                         </ul>
                     </li>
 
-
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Depuración</a>
+                    </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Descarga</a>
+                        <a class="nav-link active" aria-current="page" href="#">Estadisticas</a>
                     </li>
 
                     <li class="nav-item">
@@ -65,12 +84,12 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.html">Cerrar sesión</a>
+                        <a class="nav-link" href="../php/login/cerrar-sesion.php">Cerrar sesión</a>
                     </li>
                 </ul>
 
                 <a class=" d-flex flex-column p-0 " aria-disabled="true"><img src="../img/perfil.png" alt="Logo"
-                        width="30" height="30" class="d-inline-block align-text-end d-none d-md-block">Administrador</a>
+                        width="30" height="30" class="d-inline-block align-text-end d-none d-md-block"><?php echo $usuario; ?></a>
             </div>
         </div>
     </nav>

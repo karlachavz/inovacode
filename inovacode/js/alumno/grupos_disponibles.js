@@ -1,0 +1,1 @@
+document.getElementById('btnInscripcion').innerHTML('cerrado');

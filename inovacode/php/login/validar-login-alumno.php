@@ -1,32 +1,5 @@
-<?php 
-/*
-require "../conexion.php";
-
-$no_control=$_POST['no_control'];
-$contrasena=$_POST['contrasena'];
-
-    //objeto conexion
-    $C=conectar();
-    $consulta ="SELECT * FROM usuarios WHERE usuario =".$no_control." AND contrasena ='".$contrasena."' AND id_tipo_usuario = 1";
-    //el resultado se crea como un arreglo
-    $resultado = $C ->query($consulta);
-    
-    
-    
-        if ($resultado->num_rows > 0) {
-        // Usuario válido → redirige a la página principal
-        header("Location:../../alumno/menu-alumno.php");
-        exit(); // Importante para detener el script después de redirigir
-    } else {
-        // Usuario o contraseña incorrectos → redirige al index
-        header("Location:../../alumno/login-alumno.php?error=incorrecto");
-        exit();
-    }
-
-    // Cerrar conexión
-    $stmt->close();
-    $C->close();
-*/
+<?php
+session_start(); // ¡Importante! Iniciar la sesión
 
 require "../conexion.php";
 
@@ -36,27 +9,58 @@ $contrasena = $_POST['contrasena'];
 $C = conectar();
 
 try {
-    // Usar prepared statement
-    $stmt = $C->prepare("SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ? AND id_tipo_usuario = 1");
-    $stmt->bind_param("ss", $no_control, $contrasena);
+
+    // Buscar usuario - Incluimos id_usuario en la consulta
+    $stmt = $C->prepare("
+        SELECT usuarios.id_usuario, usuario, contrasena, nombre, apellido_paterno, apellido_materno 
+        FROM usuarios 
+        INNER JOIN alumnos ON usuarios.id_usuario = alumnos.id_usuario
+        WHERE usuario = ? 
+        AND id_tipo_usuario = 1
+    ");
+
+    $stmt->bind_param("s", $no_control);
     $stmt->execute();
     $resultado = $stmt->get_result();
-    
+
+    // Verificar si existe usuario
     if ($resultado->num_rows > 0) {
-        header("Location:../../alumno/menu-alumno.php");
-        exit();
+
+        $usuario = $resultado->fetch_assoc();
+
+        // Verificar contraseña hash
+        if (password_verify($contrasena, $usuario['contrasena'])) {
+
+            // Guardar datos en sesión
+            $_SESSION['id_usuario'] = $usuario['id_usuario'];
+            $_SESSION['usuario'] = $usuario['usuario'];
+            $_SESSION['tipo_usuario'] = 1; // Alumno
+            $_SESSION['nombre']=$usuario['nombre'];
+            $_SESSION['apellido1']=$usuario['apellido_paterno'];
+            $_SESSION['apellido2']=$usuario['apellido_materno'];
+
+
+           
+           
+
+            header("Location:../../alumno/menu-alumno.php");
+            exit();
+        } else {
+
+            header("Location:../../alumno/login-alumno.php?error=incorrecto");
+            exit();
+        }
     } else {
+
         header("Location:../../alumno/login-alumno.php?error=incorrecto");
         exit();
     }
-    
+
     $stmt->close();
     $C->close();
-    
 } catch (mysqli_sql_exception $e) {
+
     $C->close();
     header("Location:../../alumno/login-alumno.php?error=bd");
     exit();
 }
-?>
-

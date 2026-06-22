@@ -6,31 +6,24 @@ $control = $_POST['no_control'];
 $nom = $_POST['n'];
 $ap1 = $_POST['ap1'];
 $ap2 = $_POST['ap2'];
-$carrera_texto = $_POST['c']; // Texto de la carrera seleccionada
+$id_division = $_POST['id_d']; 
 $correo = $_POST['e'];
 $pass = $_POST['p'];
 
-try {
-    // 1. Obtener el id_division según la carrera seleccionada
-    $mapa_carreras = [
-        "Ingeniería en Gestión Empresarial" => 2,
-        "Ingeniería en Sistemas Computacionales" => 1,
-        "Ingeniería Química" => 3,
-        "Contador Público" => 4,
-        "Ingeniería Industrial" => 5,
-        "Ingeniería en Logística" => 6,
-        "Ingeniería en Semiconductores" => 1,
-        "Ingeniería Mecatrónica" => 7
-    ];
+//encriptar el password 
+$ph = password_hash($pass, PASSWORD_BCRYPT);
+
+//try {
     
-    $id_division = $mapa_carreras[$carrera_texto] ?? 1;
+    
+   
     
     // 2. Iniciar transacción
     $C->begin_transaction();
     
     // 3. Insertar en tabla usuarios (autenticación)
     $stmt_usuario = $C->prepare("INSERT INTO usuarios (id_tipo_usuario, usuario, contrasena) VALUES (1, ?, ?)");
-    $stmt_usuario->bind_param("ss", $control, $pass);
+    $stmt_usuario->bind_param("ss", $control, $ph);
     $stmt_usuario->execute();
     $id_usuario = $C->insert_id;
     
@@ -45,19 +38,21 @@ try {
     $stmt_usuario->close();
     $stmt_alumno->close();
     $C->close();
+
+    
     
     header("Location: ../../administrador/administrar-alumnos.php?mensaje=exito");
     exit;
     
-} catch (mysqli_sql_exception $e) {
+/*} catch (mysqli_sql_exception $e) {
     $C->rollback();
     
-    // Error 1062 = duplicado (número de control ya existe)
+    
     if ($e->getCode() == 1062) {
         header("Location: ../../administrador/administrar-alumnos.php?mensaje=duplicado");
     } else {
         header("Location: ../../administrador/administrar-alumnos.php?mensaje=desconocido");
     }
     exit;
-}
+}*/
 ?>

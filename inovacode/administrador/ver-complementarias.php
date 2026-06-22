@@ -1,3 +1,19 @@
+<?php
+
+//Verificar que el usuario haya iniciado session para acceder a la página
+session_start();
+
+// Verificar que el usuario haya iniciado sesión
+if (!isset($_SESSION['admin_usuario'])) {
+    header("Location: ../alumno/login-alumno.php");
+    exit();
+}
+
+// Obtener el ID de usuario de la sesión
+$id_usuario =  $_SESSION['id_usuario'];
+$usuario = $_SESSION['admin_usuario'];
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -19,64 +35,80 @@
         display: none;
     }
 
-
     .acciones {
         display: flex;
         justify-content: space-between;
     }
+
+    .filtro-periodo {
+        width: 15rem;
+    }
+
+    .filtro-periodo div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 5px;
+    }
 </style>
-
-<script>
-    document.getElementById('modalEditarGrupo').addEventListener('show.bs.modal', function(event) {
-
-        const button = event.relatedTarget;
-
-        document.getElementById('edit_id_grupo').value = button.getAttribute('data-id');
-        document.getElementById('edit_nombre').value = button.getAttribute('data-nombre');
-        document.getElementById('edit_creditos').value = button.getAttribute('data-creditos');
-        document.getElementById('edit_cupos').value = button.getAttribute('data-cupos');
-
-    });
-</script>
-
 
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary ">
         <div class="container-fluid">
-
+            <!--logo y marca -->
             <a class="navbar-brand d-flex align-items-center">
-                <img src="../img/logo.jpeg" width="50" height="50" class="me-2">
+                <img src="../img/logo.jpeg" alt="Logo" width="50" height="50"
+                    class="d-inline-block align-text-top me-2">
                 <div class="d-flex flex-column">
                     <span class="fw-bold">INNOVACODE</span>
                     <small>Actividades complementarias</small>
                 </div>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+            <div class="collapse navbar-collapse " id="navbarNav">
+                <ul class="navbar-nav ms-auto me-1 ">
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Usuarios</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Usuarios
+                        </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="administrar-administradores.php">Administradores</a></li>
-                            <li><a class="dropdown-item" href="administrar-alumnos.php">Alumnos</a></li>
+                            <li><a class="dropdown-item" href="administrar-administradores.php">Cuentas
+                                    administrativas</a></li>
+                            <li><a class="dropdown-item" href="administrar-alumnos.php">Cuentas de
+                                    alumnos</a></li>
+                            <li><a class="dropdown-item" href="administrar-profesores.php">Cuentas de
+                                    profesores</a></li>
                         </ul>
                     </li>
 
+
+
                     <li class="nav-item">
-                        <a class="nav-link" href="menu-administrador.php">Complementarias</a>
+                        <a class="nav-link active" aria-current="page" href="#">Estadisticas</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.html">Cerrar sesión</a>
+                        <a class="nav-link active" aria-current="page" href="menu-administrador.php">Actividades
+                            complementarias</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../php/login/cerrar-sesion.php">Cerrar sesión</a>
                     </li>
                 </ul>
+
+                <a class=" d-flex flex-column p-0 " aria-disabled="true"><img src="../img/perfil.png" alt="Logo"
+                        width="30" height="30" class="d-inline-block align-text-end d-none d-md-block"><?php echo $usuario; ?></a>
             </div>
         </div>
     </nav>
@@ -100,25 +132,21 @@
         $id = intval($_GET['ID']);
         // conexion.php contiene la conexion a la base de datos
         require "../php/conexion.php";
-        $conexion = conectar();
-        //consulta para obtener nobre y id de la complementaria 
-        $sql = "SELECT nombre, id_complementaria FROM complementarias WHERE id_complementaria = $id";
-        $resultado = $conexion->query($sql);
+        //ruta a archivo con peticiones php que requiere esta página 
+        require "../php/peticiones/peticiones-ver-complementarias.php";
 
-        if ($resultado->num_rows == 0) {
+        //llarmar la funcion para consultar el nombre de la actividd complementaria
+        $complementarias = obtener_complementaria($id);
+
+        if ($complementarias->num_rows == 0) {
             echo "<div class='alert alert-warning'>No se encontró la complementaria</div>";
             exit;
         }
-
-        $p = $resultado->fetch_assoc();
-
-
-
-
+        $p = $complementarias->fetch_assoc();
         ?>
 
 
-
+        <!--Seccion con Btn agregar nuevo grupo y filtro por periodo-->
         <div class="">
             <h4 class="text-center mb-4">Grupos de <?= $p['nombre']; ?></h4>
 
@@ -129,23 +157,50 @@
                     <i class="bi bi-plus-square"></i> Agregar nuevo grupo
                 </button>
 
+                <div class="filtro-periodo d-flex ">
+                    <div>
+                        <label for="periodo_filtro">Período</label>
+                    </div>
 
-                <div>
-                    <label for="periodo filtro">Período</label>
-                    <select name="periodio_filtro" id="periodo_filtro">
+                    <select name="periodo_filtro" id="periodo_filtro"
+                        class="form-select"
+                        onchange="recargar_tabla(this.value, <?php echo $id ?>)"
+
                         <?php
-                        $sql = "SELECT * FROM periodo ORDER BY id_periodo  DESC";
+                        //si esta periodo en url añadir el dato del periodo a el select
+                        if (isset($_GET['periodo'])) {
+                        ?>
+                        data-periodo-seleccionado="<?php echo $_GET['periodo'] ?>">
+                    <?php } else {
+                    ?>
+                        data-periodo-seleccionado="0">
+                    <?php } ?>
+                    <option value="0" id="option_periodo0">Todos</option>
+                    <?php
+                    // llamamos a la funcion para obtener periodos
+                    $periodos = obtener_periodos();
 
-                        $resultado = $conexion->query($sql);
+                    while ($periodo = $periodos->fetch_assoc()) { ?>
 
-                        while ($periodo = $resultado->fetch_assoc()) { ?>
-
-                            <option value="<?= $periodo['id_periodo'] ?>">
-                                <?= $periodo['periodo'] ?>
-                            </option>
-
-                        <?php } ?>
+                        <option value="<?= $periodo['id_periodo'] ?>"
+                            id="option_periodo<?= $periodo['id_periodo'] ?>">
+                            <?= $periodo['periodo'] ?>
+                        </option>
+                    <?php } ?>
                     </select>
+                    <script>
+                        const selectPeriodo = document.getElementById('periodo_filtro');
+
+                        const periodo_seleccionado = selectPeriodo.getAttribute('data-periodo-seleccionado');
+
+                        if (periodo_seleccionado) {
+                            const opcion = document.getElementById('option_periodo' + periodo_seleccionado);
+
+                            if (opcion) {
+                                opcion.selected = true;
+                            }
+                        }
+                    </script>
                 </div>
 
             </div>
@@ -170,11 +225,10 @@
                                 <label for="">Perído</label>
                                 <select name="id_periodo" id="id_periodo" class="form-select">
                                     <?php
-                                    $sql = "SELECT * FROM periodo ORDER BY id_periodo  DESC";
+                                    // llamar a funcion para obtener periodos y guardarlos en variable $periodos
+                                    $periodos = obtener_periodos();
 
-                                    $resultado = $conexion->query($sql);
-
-                                    while ($periodo = $resultado->fetch_assoc()) { ?>
+                                    while ($periodo = $periodos->fetch_assoc()) { ?>
 
                                         <option value="<?= $periodo['id_periodo'] ?>">
                                             <?= $periodo['periodo'] ?>
@@ -190,17 +244,15 @@
                                 <select class="form-select" name="id_profesor">
                                     <option selected value="">Selecciona un profesor</option>
                                     <?php
-                                    $sql = "SELECT id_profesor, nombre, apellido_paterno, apellido_materno FROM profesores;";
-                                    $resultado = $conexion->query($sql);
 
-                                    while ($profesor = $resultado->fetch_assoc()) { ?>
+                                    $profesores = obtener_profesores();
+                                    while ($profesor = $profesores->fetch_assoc()) { ?>
 
                                         <option value="<?= $profesor['id_profesor'] ?>">
                                             <?= $profesor['nombre'] ?>
                                             <?= $profesor['apellido_paterno'] ?>
                                             <?= $profesor['apellido_materno'] ?>
                                         </option>
-
                                     <?php } ?>
                                 </select>
 
@@ -445,7 +497,15 @@
             require("../php/crud-grupos/ver-grupos.php");
             // Llamamos a la función que trae todos los datos
 
-            $resultado = consultar_grupos($_GET['ID']);
+            // si esta periodo en el url mostrar solo los registros de ese periodo
+            if (isset($_GET['periodo'])) {
+                $resultado = consultar_grupos_con_periodo($id, $_GET['periodo']);
+                // sino mostrar todos los resultrados  
+            } else {
+                $resultado = consultar_grupos($_GET['ID']);
+            }
+
+
 
             // Arreglo donde vamos a agrupar los datos por grupo
             $grupos = [];
@@ -454,23 +514,32 @@
             while ($fila = $resultado->fetch_assoc()) {
 
                 // Guardamos el id del grupo actual
-                $id = $fila['id_grupo'];
+                $id_grupo = $fila['id_grupo'];
+
+
 
                 // Si el grupo NO existe aún en el arreglo, lo creamos
                 if (!isset($grupos[$id])) {
 
-                    $grupos[$id] = [
+                    $grupos[$id_grupo] = [
                         // Datos del grupo
                         'id_grupo' => $fila['id_grupo'],
                         'nombre_grupo' => $fila['nombre_grupo'],
 
+
+                        'id_profesor' => $fila['id_profesor'],
                         // Concatenamos el nombre completo del profesor
                         'profesor' => $fila['nombre_profesor'] . ' ' .
                             $fila['apellido_paterno'] . ' ' .
                             $fila['apellido_materno'],
 
+
                         'cupos' => $fila['cupos_disponibles'],
                         'creditos' => $fila['creditos'],
+                        'id_periodo' => $fila['id_periodo'],
+                        'periodo' => $fila['periodo'],
+
+
 
                         // Aquí guardaremos TODOS los horarios del grupo
                         'horarios' => []
@@ -478,7 +547,8 @@
                 }
 
                 // Agregamos el horario actual al grupo correspondiente
-                $grupos[$id]['horarios'][] =
+                $grupos[$id_grupo]['horarios'][] =
+
                     $fila['dia'] . ' ' .
                     $fila['hora_inicio'] . ' - ' .
                     $fila['hora_fin'];
@@ -495,6 +565,7 @@
                         <th>Día / Horario</th>
                         <th>Créditos</th>
                         <th>Cupos</th>
+                        <th>Período</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -521,20 +592,28 @@
                             <!-- Cupos -->
                             <td><?= $g['cupos']; ?></td>
 
-                            <!-- Botones -->
+                            <!-- Cupos -->
+                            <td><?= $g['periodo']; ?></td>
+
+                            <!-- Botones de editar y eliminar -->
                             <td>
+                                <!--botón para editar complementaria-->
                                 <button
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalEditarGrupo"
+                                    
 
-                                    data-id="<?= $id ?>"
+                                    data-id-grupo="<?= $g['id_grupo'] ?>"
+                                    
                                     data-nombre="<?= $g['nombre_grupo'] ?>"
-                                    data-profesor="<?= $g['profesor'] ?>"
+                                    data-profesor="<?= $g['id_profesor'] ?>"
                                     data-creditos="<?= $g['creditos'] ?>"
-                                    data-cupos="<?= $g['cupos'] ?>">
+                                    data-cupos="<?= $g['cupos']  ?>"
+                                    data-periodo="<?= $g['id_periodo'] ?>">
                                     <i class="bi bi-pencil"></i>
                                 </button>
+                                <!--botón para eliminar complementaria-->
                                 <a href="../php/crud-grupos/eliminar-grupo.php?id_complementaria=<?php echo $_GET['ID']; ?>&id_grupo=<?= $g['id_grupo'] ?>" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
@@ -561,26 +640,47 @@
                     <div class="modal-body">
 
                         <!-- ID del grupo -->
-                        <input type="hidden" name="id_grupo" id="edit_id_grupo">
+                        <input type="text" name="id_grupo" id="edit_id_grupo">
 
-                        <label class="form-label">Nombre del grupo</label>
-                        <input type="text" class="form-control" name="nombre" id="edit_nombre" required>
+                        <!--ID complementaria-->
+                        <input type="text" name="id_complementaria" id="edit_id_complementaria" value="<?php echo $id ?>">
 
-                        <label class="form-label mt-2">Profesor</label>
-                        <select class="form-select" name="id_profesor" id="edit_profesor" required>
+                        <label for="edit_periodo">Perído</label>
+                        <select name="edit_periodo" class="form-select" id="edit_periodo">
                             <?php
-                            $sql = "SELECT id_profesor, nombre, apellido_paterno, apellido_materno FROM profesores";
-                            $res = $conexion->query($sql);
-                            while ($prof = $res->fetch_assoc()) {
-                                echo "<option value='{$prof['id_profesor']}'>
-                                {$prof['nombre']} {$prof['apellido_paterno']} {$prof['apellido_materno']}
-                            </option>";
-                            }
-                            ?>
+                            //llama a funcion para obtener periodos de la base de datos
+                            $periodos = obtener_periodos();
+
+                            while ($periodo = $periodos->fetch_assoc()) { ?>
+
+                                <option value="<?= $periodo['id_periodo'] ?>">
+                                    <?= $periodo['periodo'] ?>
+                                </option>
+
+                            <?php } ?>
                         </select>
 
-                        <label class="form-label mt-2">Créditos</label>
-                        <select class="form-select" name="creditos" id="edit_creditos">
+                        <label class="form-label" for="edit_nombre">Nombre del grupo</label>
+                        <input type="text" class="form-control" name="edit_nombre" id="edit_nombre" required>
+
+                        <label for="edit_profesor" class="form-label mt-2">Profesor</label>
+                        <select class="form-select" name="edit_profesor" id="edit_profesor">
+                            <option selected value="">Selecciona un profesor</option>
+                            <?php
+
+                            $profesores = obtener_profesores();
+                            while ($profesor = $profesores->fetch_assoc()) { ?>
+
+                                <option value="<?= $profesor['id_profesor'] ?>">
+                                    <?= $profesor['nombre'] ?>
+                                    <?= $profesor['apellido_paterno'] ?>
+                                    <?= $profesor['apellido_materno'] ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+
+                        <label class="form-label mt-2" for="edit_creditos">Créditos</label>
+                        <select class="form-select" name="edit_creditos" id="edit_creditos">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -588,8 +688,8 @@
                             <option value="5">5</option>
                         </select>
 
-                        <label class="form-label mt-2">Cupos</label>
-                        <input type="number" class="form-control" name="cupos" id="edit_cupos" min="1" max="100" required>
+                        <label class="form-label mt-2" for="edit_cupos">Cupos</label>
+                        <input type="number" class="form-control" name="edit_cupos" id="edit_cupos" min="1" max="100" required>
 
                     </div>
 
@@ -602,6 +702,34 @@
 
             </div>
         </div>
+        <script>
+            document
+                .getElementById("modalEditarGrupo")
+                .addEventListener("show.bs.modal", function(event) {
+
+                    const button = event.relatedTarget;
+
+                    document.getElementById("edit_id_grupo").value =
+                        button.getAttribute("data-id-grupo");
+                    
+                    
+
+                    document.getElementById("edit_nombre").value =
+                        button.getAttribute("data-nombre");
+
+                    document.getElementById("edit_profesor").value =
+                        button.getAttribute("data-profesor");
+
+                    document.getElementById("edit_creditos").value =
+                        button.getAttribute("data-creditos");
+
+                    document.getElementById("edit_cupos").value =
+                        button.getAttribute("data-cupos");
+
+                    document.getElementById("edit_periodo").value =
+                        button.getAttribute("data-periodo");
+                });
+        </script>
     </div>
 
     <br><br>
@@ -613,91 +741,7 @@
         </div>
     </footer>
 
-    <script>
-        function mostrarCampos() {
-            const contenedor = document.getElementById("campos-ocultos");
-
-            const check = document.getElementById("tiene_segundo_dia");
-
-            if (check.checked === false) {
-                contenedor.style.display = "none";
-            }
-            if (check.checked) {
-                contenedor.style.display = "block";
-            }
-        }
-    </script>
-
-    <script>
-        function actualizarHoraFin(numeroDia) {
-            const inicioSelect = document.getElementById("hora_inicio" + numeroDia);
-            const finSelect = document.getElementById("hora_fin" + numeroDia);
-
-            // Obtener el valor seleccionado
-            const inicio = inicioSelect.value;
-
-            // Si no hay valor seleccionado, salir
-            if (!inicio || inicio === "") {
-                return;
-            }
-
-            // Convertir la hora a número y sumar 1 hora
-            const [horaStr, minutoStr] = inicio.split(":");
-            let hora = parseInt(horaStr);
-
-            // Sumar 1 hora
-            hora += 1;
-
-            // Formatear a 2 dígitos
-            const horaFin = hora.toString().padStart(2, '0');
-            const nuevaHoraFin = horaFin + ":" + minutoStr;
-
-            // Buscar y seleccionar la opción correspondiente en hora_fin
-            for (let i = 0; i < finSelect.options.length; i++) {
-                if (finSelect.options[i].value === nuevaHoraFin) {
-                    finSelect.selectedIndex = i;
-                    break;
-                }
-            }
-        }
-
-        function mostrarCampos() {
-            const contenedor = document.getElementById("campos-ocultos");
-            const check = document.getElementById("tiene_segundo_dia");
-
-            contenedor.style.display = check.checked ? "block" : "none";
-        }
-
-        // Inicializar campos ocultos como ocultos al cargar la página
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("campos-ocultos").style.display = "none";
-        });
-    </script>
-
-    <script>
-        function validarHoras(numeroDia) {
-            const inicio = document.getElementById("hora_inicio" + numeroDia);
-            const fin = document.getElementById("hora_fin" + numeroDia);
-
-            if (!inicio.value || !fin.value) return;
-
-            const inicioMin = convertirAMinutos(inicio.value);
-            const finMin = convertirAMinutos(fin.value);
-
-            if (finMin <= inicioMin) {
-                alert("La hora de término debe ser mayor a la hora de inicio");
-                fin.value = "";
-            }
-        }
-
-        function convertirAMinutos(hora) {
-            const [h, m] = hora.split(":").map(Number);
-            return h * 60 + m;
-        }
-    </script>
-
-
-
+    <script src="../js/administrador/peticiones/ver-complementarias.js"></script>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

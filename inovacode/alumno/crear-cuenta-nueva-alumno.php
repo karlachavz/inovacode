@@ -120,7 +120,7 @@
                     <div class="col">
                         <div class="mb-3 text-start ">
                             <label for="carrera" class="form-label fw-bold">Carrera</label>
-                            <select name="id_division" id="carrera" class="form-select" required>
+                            <select name="id_d" id="carrera" class="form-select" required>
                                 <option value="1">Ingeniería en Sistemas Computacionales</option>
                                 <option value="2">Ingeniería en Gestión Empresarial</option>
                                 <option value="3">Ingeniería Química</option>

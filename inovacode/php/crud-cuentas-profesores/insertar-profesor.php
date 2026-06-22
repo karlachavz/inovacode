@@ -1,35 +1,76 @@
 <?php
 
 require "../conexion.php";
-$CON =conectar();
 
+$C = conectar();
 
-$user=$_POST['u'];
-$nom=$_POST['n'];
-$ap1=$_POST['ap1'];
-$ap2=$_POST['ap2'];
-$correo=$_POST['e'];
-$pass=$_POST['p'];
+$n = $_POST['n'];
+$ap1 = $_POST['ap1'];
+$ap2 = $_POST['ap2'];
+$u = $_POST['u'];
+$e = $_POST['e'];
+$p = $_POST['p'];
 
-$consulta = "INSERT INTO profesores (nombre, apellido_paterno, apellido_materno,usuario,correo, contrasena) 
-VALUES ( '$nom', '$ap1', '$ap2', '$user', '$correo', '$pass')";
-
+// Encriptar contraseña
+$ph = password_hash($p, PASSWORD_BCRYPT);
 
 try {
-    $CON->query($consulta);
-    $CON->close();
-    header("Location: ../../administrador/administrar-profesores.php?mensaje=exitoso");
-    exit;
-} 
-catch (mysqli_sql_exception $e) {
 
-    // Si el error es de duplicado (código 1062)
+    // Iniciar transacción
+    $C->begin_transaction();
+
+    // Insertar en usuarios
+    // id_tipo_usuario = 2 -> Profesor
+    $stmt_usuario = $C->prepare("
+        INSERT INTO usuarios (id_tipo_usuario, usuario, contrasena) 
+        VALUES (2, ?, ?)
+    ");
+
+    $stmt_usuario->bind_param("ss", $u, $ph);
+    $stmt_usuario->execute();
+
+    $id_usuario = $C->insert_id;
+
+    // Insertar en profesores
+    $stmt_profesor = $C->prepare("
+        INSERT INTO profesores 
+        (id_usuario, nombre, apellido_paterno, apellido_materno, correo) 
+        VALUES (?, ?, ?, ?, ?)
+    ");
+
+    $stmt_profesor->bind_param(
+        "issss",
+        $id_usuario,
+        $n,
+        $ap1,
+        $ap2,
+        $e
+    );
+
+    $stmt_profesor->execute();
+
+    // Confirmar transacción
+    $C->commit();
+
+    $stmt_usuario->close();
+    $stmt_profesor->close();
+    $C->close();
+
+    header("Location:../../administrador/administrar-profesores.php?mensaje=exito");
+    exit();
+
+} catch (mysqli_sql_exception $e) {
+
+    $C->rollback();
+
     if ($e->getCode() == 1062) {
-        header("Location: ../../administrador/administrar-profesores.php?mensaje=duplicado");
+
+        header("Location:../../administrador/administrar-profesores.php?mensaje=duplicado");
+
     } else {
-        header("Location: ../../administrador/administrar-profesores.php?mensaje=desconocido");
+
+        header("Location:../../administrador/administrar-profesores.php?mensaje=desconocido");
     }
 
-    exit;
+    exit();
 }
-

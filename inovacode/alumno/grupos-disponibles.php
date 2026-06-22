@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+// Verificar que el usuario haya iniciado sesión
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: ../alumno/login-alumno.php");
+    exit();
+}
+
+// Obtener el ID de usuario de la sesión
+$id_usuario = $_SESSION['id_usuario'];
+$usuario = $_SESSION['usuario'];
+$nombre = $_SESSION['nombre'];
+$apellido1 = $_SESSION['apellido1'];
+$apellido2 = $_SESSION['apellido2'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +29,7 @@
 </head>
 
 <body>
+
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary ">
         <div class="container-fluid">
@@ -31,19 +49,20 @@
             <div class="collapse navbar-collapse " id="navbarNav">
                 <ul class="navbar-nav ms-auto me-1 ">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Actividades</a>
+                        <a class="nav-link active" aria-current="page" href="menu-alumno.php">Actividades</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Historial de avance</a>
+                        <a class="nav-link" href="historial-avance.php">Historial de avance</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.html">Cerrar sesión</a>
+                        <a class="nav-link" href="../php/login/cerrar-sesion.php">Cerrar sesión</a>
                     </li>
                 </ul>
 
                 <a class=" d-flex flex-column p-0 " aria-disabled="true">
                     <img src="../img/perfil.png" alt="Logo" width="30" height="30"
-                        class="d-inline-block align-text-end d-none d-md-block">Alumno</a>
+                        class="d-inline-block align-text-end d-none d-md-block">
+                    <span> <?php echo $nombre ?></span></a>
             </div>
         </div>
     </nav>
@@ -54,6 +73,23 @@
         <h2 class="text-center mb-4 fw-bold">Actividades Complementarias</h2>
 
         <?php
+        require "../php/conexion.php";
+        require("../php/crud-grupos/ver-grupos.php");
+        require("../php/grupos-disponibles/esta-inscrito.php");
+
+        $esta_inscrito = esta_inscrito($usuario,$_GET['ID']);
+
+         if ($esta_inscrito==true) {
+            //si no se encuentra el id la url de la página lanza la siguente alerta
+            echo "<div class='alert alert-danger'>Usted ya esta inscrito a esta complementaria</div> <a href='menu-alumno.php' class='btn btn-custom'><i class='bi bi-arrow-left-circle'></i> Regresar</a>";
+            exit;
+        }
+
+        
+
+
+        
+        //verficar si el url tiene el id de la complementaria 
         if (!isset($_GET['ID'])) {
             //si no se encuentra el id la url de la página lanza la siguente alerta
             echo "<div class='alert alert-danger'>ID no proporcionado</div> <a href='menu-alumno.php' class='btn btn-custom'><i class='bi bi-arrow-left-circle'></i> Regresar</a>";
@@ -67,14 +103,49 @@
         </div>
 
 
+        <!--MENSAJES DE ALERTA-->
+        <?php
+        if (isset($_GET['mensaje'])) {
+
+            if ($_GET['mensaje'] == "denegado") {
+                echo "<div class='alert alert-danger' role='alert'>Ha ocurrido un error. Acceso denegado</div>";
+            }
+
+            if ($_GET['mensaje'] == "limite") {
+                echo "<div class='alert alert-danger' role='alert'>No se pudo completar la inscripción, ha exedido el límite de complementarias a las que se puede inscribir este período.</div>";
+            }
+
+
+            if ($_GET['mensaje'] == "inscrito") {
+                echo "<div class='alert alert-success' role='alert'>Se ha inscrito exitosamente al grupo </div>";
+            }
+
+            if ($_GET['mensaje'] == "sincupos") {
+                echo "<div class='alert alert-danger' role='alert'>No puede inscribirse a este grupo no hay suficientes cupos disponibles</div>";
+            }
+
+            if ($_GET['mensaje'] == "yainscrito") {
+                echo "<div class='alert alert-danger' role='alert'>No se pudo inscribir a esta complementaria usted ya está inscrito</div>";
+            }
+
+            if ($_GET['mensaje'] == "errorinscripcion") {
+                echo "<div class='alert alert-danger' role='alert'>Ha ocurrido un error inesperado.</div>";
+            }
+        }
+        ?>
+
+        <!--BOTON REGRESAR-->
 
         <a href="menu-alumno.php" class="btn btn-custom"><i class="bi bi-arrow-left-circle"></i> Regresar</a>
         <hr>
 
+
+        <!--TABLAS DE GRUPOS DISPONIBLES-->
+
         <div>
             <?php
-            require "../php/conexion.php";
-            require("../php/crud-grupos/ver-grupos.php");
+            
+            
             // Llamamos a la función que trae todos los datos
             $resultado = consultar_grupos($id_complementaria);
             // Arreglo donde vamos a agrupar los datos por grupo
@@ -124,6 +195,7 @@
                         <th>Día / Horario</th>
                         <th>Créditos</th>
                         <th>Cupos</th>
+                        <th>Inscripción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -148,6 +220,23 @@
 
                             <!-- Cupos -->
                             <td><?= $g['cupos']; ?></td>
+
+                            <!--Boton para inscribirse-->
+                            <td class="text-center">
+                                <!--Si los cupos son cero se desabilita el btn-->
+                                <?php
+                                if ($g['cupos'] <= 0) { ?>
+                                    <a href="#" class="btn btn-secondary btn-sm disabled">Grupo cerrado</a>
+                                <!--Si el alumno ya esta escrito a es grupo -->
+                            
+                                <!--si el grupo tiene espacios btn habilitado-->
+                                <?php } elseif ($g['cupos'] > 0) {
+                                ?>
+                                    <a href="../php/grupo-alumno/solicitar-inscripcion.php?control=<?php echo $usuario ?>&ID=<?php echo $_GET['ID'] ?>&nombre=<?php echo $_GET['nombre'] ?>&id_grupo=<?php echo $g['id_grupo'] ?>" id="btnInscripcion" class="btn btn-info btn-sm">Solicitar inscripción</a>
+
+                                <?php  } ?>
+                            </td>
+
                         </tr>
                     <?php } ?>
 
@@ -185,9 +274,18 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2025 TESCI | Todos los derechos reservados</p>
+            <p>&copy; 2026 TESCI | Todos los derechos reservados</p>
         </div>
     </footer>
+
+
+    <script src="../js/alumno/grupos_disponibles.js">
+
+
+    </script>
+
+
+
     <!-- JS BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

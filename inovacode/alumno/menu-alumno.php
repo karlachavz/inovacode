@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+// Verificar que el usuario haya iniciado sesión
+if (!isset($_SESSION['id_usuario'])) {
+  header("Location: ../alumno/login-alumno.php");
+  exit();
+}
+
+// Obtener el ID de usuario de la sesión
+$id_usuario = $_SESSION['id_usuario'];
+$usuario = $_SESSION['usuario'];
+$nombre =$_SESSION['nombre'];
+$apellido1=$_SESSION['apellido1'];
+$apellido2=$_SESSION['apellido2'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,19 +51,22 @@
             <a class="nav-link active" aria-current="page" href="#">Actividades</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Historial de avance</a>
+            <a class="nav-link" href="historial-avance.php">Historial de avance</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../index.html">Cerrar sesión</a>
+            <a class="nav-link" href="../php/login/cerrar-sesion.php">Cerrar sesión</a>
           </li>
         </ul>
 
         <a class=" d-flex flex-column p-0 " aria-disabled="true">
           <img src="../img/perfil.png" alt="Logo" width="30" height="30"
-            class="d-inline-block align-text-end d-none d-md-block">Alumno</a>
+            class="d-inline-block align-text-end d-none d-md-block">
+            <span> <?php echo $nombre ?></span></a>
       </div>
     </div>
   </nav>
+
+
 
   <!-- CARROUSEL -->
 
@@ -112,8 +132,8 @@
                 <div class="modal-body text-center">
                   <img src="<?= $p['imagen']; ?>" class="img-fluid rounded mb-3">
                   <p><?= $p['descripcion']; ?></p>
-                  
-                  
+
+
                 </div>
                 <div class="modal-footer">
                   <p><strong>CUPOS DISPONIBLES:</strong></p>
