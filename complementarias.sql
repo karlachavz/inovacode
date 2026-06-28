@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-06-2026 a las 06:36:03
+-- Tiempo de generación: 26-06-2026 a las 19:48:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -85,8 +85,50 @@ CREATE TABLE `asistencia` (
   `id_asistencia` int(11) NOT NULL,
   `id_grupo_alumno` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `id_estado_asistencia` int(11) NOT NULL
+  `id_estado_asistencia` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `asistencia`
+--
+
+INSERT INTO `asistencia` (`id_asistencia`, `id_grupo_alumno`, `fecha`, `id_estado_asistencia`) VALUES
+(257, 23, '2026-01-10', 1),
+(258, 23, '2026-01-17', 1),
+(259, 23, '2026-01-24', 1),
+(260, 23, '2026-01-31', 1),
+(261, 23, '2026-02-07', 1),
+(262, 23, '2026-02-14', 1),
+(263, 23, '2026-02-21', 1),
+(264, 23, '2026-02-28', 1),
+(265, 23, '2026-03-07', 1),
+(266, 23, '2026-03-14', 1),
+(267, 27, '2026-01-10', 1),
+(268, 27, '2026-01-17', 1),
+(269, 27, '2026-01-24', 1),
+(270, 27, '2026-01-31', 1),
+(271, 27, '2026-02-07', 1),
+(272, 27, '2026-02-14', 1),
+(273, 27, '2026-02-21', 1),
+(274, 27, '2026-02-28', 1),
+(275, 27, '2026-03-07', 1),
+(276, 27, '2026-03-14', 1),
+(277, 23, '2026-06-06', 1),
+(278, 23, '2026-06-13', 1),
+(279, 23, '2026-06-20', 1),
+(280, 23, '2026-06-27', 1),
+(281, 23, '2026-07-04', 1),
+(282, 23, '2026-07-11', 1),
+(283, 23, '2026-07-18', 1),
+(284, 23, '2026-07-25', 1),
+(285, 27, '2026-06-06', 1),
+(286, 27, '2026-06-13', 1),
+(287, 27, '2026-06-20', 1),
+(288, 27, '2026-06-27', 1),
+(289, 27, '2026-07-04', 1),
+(290, 27, '2026-07-11', 1),
+(291, 27, '2026-07-18', 1),
+(292, 27, '2026-07-25', 1);
 
 -- --------------------------------------------------------
 
@@ -255,7 +297,9 @@ INSERT INTO `grupos` (`id_grupo`, `id_complementaria`, `nombre`, `cupos_disponib
 (77, 30, 'Fotografia 5', 9, 3, 7, 2, 3),
 (78, 38, 'Lectura 1', 10, 2, 8, 4, 3),
 (80, 29, 'Escolta 3', 1, 4, 10, 2, 3),
-(81, 29, 'Escolta 5', 3, 1, 7, 4, 3);
+(81, 29, 'Escolta 5', 3, 1, 7, 4, 3),
+(82, 30, 'Fotografia 6', 10, 2, 9, 4, 3),
+(83, 30, 'Fotografia 7', 3, 3, 8, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -325,7 +369,11 @@ INSERT INTO `horarios` (`id_horario`, `id_dia`, `hora_inicio`, `hora_fin`, `id_g
 (59, 3, '11:00', '12:00', 77),
 (60, 3, '17:00', '18:00', 78),
 (62, 3, '14:00', '15:00', 80),
-(63, 3, '07:00', '08:00', 81);
+(63, 3, '07:00', '08:00', 81),
+(64, 4, '18:00', '19:00', 82),
+(65, 1, '20:00', '21:00', 82),
+(66, 2, '19:00', '20:00', 83),
+(67, 3, '17:00', '18:00', 83);
 
 -- --------------------------------------------------------
 
@@ -449,6 +497,7 @@ ALTER TABLE `alumnos`
 --
 ALTER TABLE `asistencia`
   ADD PRIMARY KEY (`id_asistencia`),
+  ADD UNIQUE KEY `unique_asistencia` (`id_grupo_alumno`,`fecha`),
   ADD KEY `fk_asistencia_grupo_alumno` (`id_grupo_alumno`),
   ADD KEY `fk_asistencia_estado` (`id_estado_asistencia`);
 
@@ -556,7 +605,7 @@ ALTER TABLE `administrador`
 -- AUTO_INCREMENT de la tabla `asistencia`
 --
 ALTER TABLE `asistencia`
-  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=293;
 
 --
 -- AUTO_INCREMENT de la tabla `complementarias`
@@ -592,7 +641,7 @@ ALTER TABLE `estado_asistencia`
 -- AUTO_INCREMENT de la tabla `grupos`
 --
 ALTER TABLE `grupos`
-  MODIFY `id_grupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id_grupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT de la tabla `grupo_alumno`
@@ -604,7 +653,7 @@ ALTER TABLE `grupo_alumno`
 -- AUTO_INCREMENT de la tabla `horarios`
 --
 ALTER TABLE `horarios`
-  MODIFY `id_horario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id_horario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT de la tabla `periodo`
